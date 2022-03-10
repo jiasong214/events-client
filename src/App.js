@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './Components/Header';
+import Footer from './Components/Footer';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Events from './Pages/Events';
@@ -22,6 +23,7 @@ function App() {
           <Route path="/event/:id/booking" element={<Booking />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
+        <Footer />
       </Router>
     </div>
   );

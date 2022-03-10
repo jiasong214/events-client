@@ -4,7 +4,7 @@ import '../style/header.scss';
 
 const Header = () => {
   return (
-    <header>
+    <header className="header">
       <h1>
         <Link to='/'>Title</Link>
       </h1>

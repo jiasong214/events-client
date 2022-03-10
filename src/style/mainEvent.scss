@@ -1,0 +1,46 @@
+@import "./global.scss";
+
+.mainEvent {
+  padding: $base-padding;
+  display: grid;
+  grid-template-columns: 5fr 5fr;
+
+  .textBox {
+    h2 {
+      font-size: 7.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    p {
+      margin: 10px 0 20px;
+      font-size: 4.8rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: rgb(63, 156, 231);
+    }
+
+    .btnBox {
+      a {
+        display: inline-block;
+        padding: 8px 20px;
+        margin-right: 10px;
+        border-radius: 20px;
+        border: 1px solid black;
+        font-size: 1.8rem;
+        text-transform: uppercase;
+
+        &:hover {
+          background-color: black;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .imgBox {
+    width: 100%;
+    min-height: 70vh;
+    background: gray;
+  }
+}

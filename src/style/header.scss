@@ -1,0 +1,40 @@
+@import "./global.scss";
+
+.header {
+  width: 100%;
+  padding: 10px $base-padding;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid black;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+
+  h1 {
+    padding: 5px 20px;
+    background: black;
+    font-size: 3.6rem;
+    color: white;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  nav {
+    a {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1px solid black;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+
+      &:hover {
+        background-color: black;
+        color: white;
+      }
+    }
+  }
+}
