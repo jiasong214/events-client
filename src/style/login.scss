@@ -30,6 +30,10 @@
     &.signup-email {
       margin-bottom: 20px;
     }
+
+    &.error {
+      border-bottom: 1px solid red;
+    }
   }
 
   button {
