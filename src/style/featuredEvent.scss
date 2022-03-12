@@ -4,7 +4,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   border-top: 1px solid black;
-  border-bottom: 1px solid black;
 
   .textBox {
     padding: $base-padding;

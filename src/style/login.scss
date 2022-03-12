@@ -1,0 +1,59 @@
+@import "./global.scss";
+
+.login {
+  width: fit-content;
+  padding: calc(50px + 5vh) $base-padding;
+  margin: 0 auto;
+  background-color: white;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  h2 {
+    margin-bottom: 30px;
+    font-size: 2.4rem;
+    font-weight: 900;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  input {
+    all: unset;
+    display: block;
+    width: 300px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    font-size: 1.6rem;
+
+    &.signup-email {
+      margin-bottom: 20px;
+    }
+  }
+
+  button {
+    all: unset;
+    display: block;
+    margin-top: 30px;
+    width: 70px;
+    height: 70px;
+    margin: 30px auto;
+    background-color: black;
+    border-radius: 50%;
+    font-size: 1.4rem;
+    // font-weight: 900;
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  p {
+    font-size: 1.4rem;
+    color: gray;
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

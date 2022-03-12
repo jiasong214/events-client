@@ -1,0 +1,27 @@
+@import "./global.scss";
+
+.eventsFilter {
+  height: calc(100vh - 67px);
+  border-right: 1px solid black;
+  padding: $base-padding;
+
+  ul {
+    position: sticky;
+    top: 100px;
+    width: 100%;
+    height: 100%;
+
+    li {
+      margin-bottom: 10px;
+      font-size: 5.2rem;
+      font-weight: 900;
+      text-transform: uppercase;
+
+      &:hover {
+        color: transparent;
+        -webkit-text-stroke: black;
+        -webkit-text-stroke-width: 1px;
+      }
+    }
+  }
+}

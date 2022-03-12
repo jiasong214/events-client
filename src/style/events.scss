@@ -1,0 +1,6 @@
+@import "./global.scss";
+
+.events {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+}
