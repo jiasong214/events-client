@@ -42,18 +42,21 @@ const Signup = ({isLogin, swapForm}) => {
               type="text" 
               placeholder="Email"
               className="signup-email"
+              required={true}
               value={email}
               onChange={(e) => changeEmail(e)}
             />
             <input 
               type="password" 
               placeholder="Password"
+              required={true}
               value={password}
               onChange={(e) => changePassword(e)}
             />
             <input 
               type="password" 
               placeholder="Confirm password"
+              required={true}
               className={passwordConfirmed ? "" : "error"}
               onChange={(e) => changePasswordConfirm(e)}
             />

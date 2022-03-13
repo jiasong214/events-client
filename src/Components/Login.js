@@ -28,12 +28,14 @@ const Login = ({isLogin, swapForm}) => {
             <input 
               type="text" 
               placeholder="Email"
+              required={true}
               value={email}
               onChange={(e) => changeEmail(e)}
             />
             <input 
               type="password" 
               placeholder="Password"
+              required={true}
               value={password}
               onChange={(e) => changePassword(e)}
             />

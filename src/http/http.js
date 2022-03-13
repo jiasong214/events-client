@@ -1,22 +1,24 @@
+import axios from "axios";
+const BASE_URL = "http://localhost:8080"
+
 const http = async (url, options) => {
-  const BASE_URL = ""
-  let data;
+  let res;
 
   try {
-    const res = await fetch(`${BASE_URL}${url}`, {
-      ...options,
-      header: {
+    res = await axios({
+      url: `${BASE_URL}${url}`,
+      method: options.method,
+      data: options.body,
+      headers: {
         ...options.headers,
         'Content-Type': 'application/json',
       }
     });
-
-    data = await res.json();
   } catch(err) {
     throw err;
   }
 
-  return data;
+  return res.data;
 }
 
 export default http;
