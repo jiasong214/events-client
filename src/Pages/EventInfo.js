@@ -9,6 +9,7 @@ const EventInfo = () => {
   const [bookedSeats, setBookedSeats] = useState({});
   const [selectedSeats, setSelectedSeats] = useState({});
 
+  // fetch event info
   useEffect(() => {
     const eventID = params.id;
 
@@ -16,9 +17,10 @@ const EventInfo = () => {
       .then(data => {
         setEvent(data);
         setBookedSeats(JSON.parse(data.bookings));
-      })
-  }, []);
+      });
+  }, [params.id]);
 
+  
   const clickSeat = (seatID) => {
     if(selectedSeats[seatID]) {
       // if it was selected, remove the seat from the object

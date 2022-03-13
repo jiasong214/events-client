@@ -9,6 +9,7 @@ const Signup = ({isLogin, swapForm}) => {
 
   const changeEmail = (e) => setEmail(e.target.value);
   const changePassword = (e) => setPassword(e.target.value);
+  
   const changePasswordConfirm = (e) => {
     if(password !== e.target.value) {
       setPasswordConfirmed(false);

@@ -72,10 +72,10 @@ const CreateEvent = () => {
             onChange={(e) => changeType(e)}
           >
             <option>Type</option>
-            <option value="concert">Concert</option>
-            <option value="play">Play</option>
-            <option value="concert">Concert</option>
-            <option value="concert">Concert</option>
+            <option value="musical">musical</option>
+            <option value="comedy">comedy</option>
+            <option value="drama">drama</option>
+            <option value="family">family</option>
           </select>
           <input
             type="date"

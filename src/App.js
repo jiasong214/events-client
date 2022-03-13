@@ -6,7 +6,7 @@ import Home from './Pages/Home';
 import LoginPage from './Pages/LoginPage';
 import Events from './Pages/Events';
 import EventInfo from './Pages/EventInfo';
-import Cart from './Pages/Cart';
+import Wishlist from './Pages/Wishlist';
 import Booking from './Pages/Booking';
 import './style/global.scss';
 import Admin from './Pages/Admin';
@@ -22,9 +22,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/events" element={<Events />} />
+          <Route path="/events?type=:type" element={<Events />} />
           <Route path="/event/:id" element={<EventInfo />} />
-          <Route path="/event/:id/book" element={<Booking />} />
-          <Route path="/cart" element={<Cart />} />
+          {/* <Route path="/event/:id/book" element={<Booking />} /> */}
+          <Route path="/wishlist" element={<Wishlist />} />
 
           <Route path="/admin" element={<Admin />} />
           <Route path="/admin/event/new" element={<CreateEvent />} />

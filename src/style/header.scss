@@ -31,7 +31,8 @@
       text-transform: uppercase;
       font-size: 1.6rem;
 
-      &:hover {
+      &:hover,
+      &.active {
         background-color: black;
         color: white;
       }

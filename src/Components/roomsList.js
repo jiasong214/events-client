@@ -33,7 +33,7 @@ const RoomsList = () => {
 
       <ul>
         {
-          rooms.map((room) => (
+          rooms && rooms.map((room) => (
             <li key={room._id}>
               <div className='textBox'>
                 <h2>{room.name}</h2>

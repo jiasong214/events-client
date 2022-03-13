@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { deleteEvent, getEvents } from '../services/events';
-import '../style/eventsListNarrow.scss';
+import '../style/adminEventsList.scss';
 
-const EventsListNarrow = () => {
+const AdminEventsList = () => {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
+    // 1. check user's status
+
+    // 2. 
     getEvents()
       .then((data) => setEvents(data));
   }, []);
@@ -25,16 +29,16 @@ const EventsListNarrow = () => {
   }
 
   return (
-    <div className="eventsListNarrow">
+    <div className="adminEventsList wishlist">
       <div className='addBtnBar'>
         <Link to='/admin/event/new'>+ new event</Link>
       </div>
       <div className="viewOptionBar">
         <div className="filters">
-          <button>Concert</button>
           <button>Musical</button>
-          <button>Play</button>
-          <button>Standup</button>
+          <button>Comedy</button>
+          <button>Drama</button>
+          <button>Family</button>
         </div>
         <div className="sorts">
           <button>Most popular</button>
@@ -43,7 +47,7 @@ const EventsListNarrow = () => {
       </div>
       <ul>
         {
-          events.map((event) => (
+          events && events.map((event) => (
             <li key={event._id}>
               <div className='imgBox'>
 
@@ -51,7 +55,6 @@ const EventsListNarrow = () => {
               <div className='textBox'>
                 <span className="eventType">{event.type}</span>
                 <h3 className="eventName">{event.name}</h3>
-                <p className="eventDate">SUN 13.04 17.00</p>
                 <p className="eventDate">{event.date}</p>
               </div>
               <div className="btnBox">
@@ -69,4 +72,4 @@ const EventsListNarrow = () => {
   )
 };
 
-export default EventsListNarrow;
+export default AdminEventsList;

@@ -1,16 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import '../style/eventsFilter.scss';
 
 const EventsFilter = () => {
+  const [searchParams] = useSearchParams();
+  const [type, setType] = useState();
+
+  useEffect(() => {
+    setType(searchParams.get("type"));
+  }, [searchParams])
+  
   return (
     <div className="eventsFilter">
-      <ul>
-        <li>Filter1</li>
-        <li>Filter2</li>
-        <li>Filter3</li>
-        <li>Filter4</li>
-        <li>Filter5</li>
-      </ul>
+      <div>
+        <Link
+          to="/events"
+          className={type ? "" : "active"}
+        >
+          All
+        </Link>
+        <Link
+          to="/events?type=musical"
+          className={type === "musical" ? "active" : ""}
+        >
+          Musical
+        </Link>
+        <Link
+          to="/events?type=comedy"
+          className={type === "comedy" ? "active" : ""}
+        >
+          Comedy
+        </Link>
+        <Link
+          to="/events?type=drama"
+          className={type === "drama" ? "active" : ""}
+        >
+          Drama
+        </Link>
+        <Link
+          to="/events?type=family"
+          className={type === "family" ? "active" : ""}
+        >
+          Family
+        </Link>
+      </div>
     </div>
   )
 };

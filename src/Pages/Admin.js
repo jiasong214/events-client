@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import EventsListNarrow from '../Components/EventsListNarrow';
+import AdminEventsList from '../Components/AdminEventsList';
 import RoomsList from '../Components/roomsList';
 import '../style/admin.scss';
 
@@ -33,7 +33,7 @@ const Admin = () => {
       {
         tab === "events"
         ?
-        <EventsListNarrow />
+        <AdminEventsList />
         :
         <RoomsList />
       }

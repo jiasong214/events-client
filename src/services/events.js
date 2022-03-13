@@ -6,6 +6,15 @@ export const getEvents = async () => {
   });
 }
 
+export const getEventsByType = async (type) => {
+  console.log(type);
+  
+  return http(`/event/type/${type}`, {
+    method: "GET",
+    body: {type}
+  });
+}
+
 export const getEvent = async (id) => {
   return http(`/event/${id}`, {
     method: "GET"
