@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getUserInfo } from '../services/users';
+import { getUserInfo, removeWishlistItem } from '../services/users';
 import '../style/wishlist.scss';
 
 const Wishlist = () => {
@@ -14,11 +14,16 @@ const Wishlist = () => {
     const userID = '622c935180eeaf9c4468603f'
 
     getUserInfo(userID)
-      .then((data) => {
-        setEvents(data.wishlist);
-        console.log(data)
-      })
+      .then((data) => setEvents(data.wishlist));
   }, []);
+
+  const clickDelete = async (eventID) => {
+
+    const userID = '622c935180eeaf9c4468603f'
+
+    removeWishlistItem(userID, eventID)
+      .then((data) => setEvents([...data.wishlist]));
+  }
 
   return (
     <section className='wishlist'>
@@ -39,7 +44,7 @@ const Wishlist = () => {
               </div>
               <div className='btnBox'>
                 <Link to={`/event/${event._id}`}>Book</Link>
-                <button>Delete</button>
+                <button onClick={() => clickDelete(event._id)}>Delete</button>
               </div>
             </li>
           ))

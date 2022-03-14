@@ -36,6 +36,15 @@
         background-color: black;
         color: white;
       }
+
+      &.login {
+        all: unset;
+        display: inline-block;
+        margin-right: 20px;
+        font-size: 1.6rem;
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
 }

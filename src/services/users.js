@@ -36,8 +36,7 @@ export const addWishlistItem = async (userID, eventID) => {
 }
 
 export const removeWishlistItem = async (userID, eventID) => {
-  return http(`/user/${userID}/wishlist`, {
-    method: "DELETE",
-    body: {eventID}
+  return http(`/user/${userID}/wishlist/${eventID}`, {
+    method: "DELETE"
   });
 }
