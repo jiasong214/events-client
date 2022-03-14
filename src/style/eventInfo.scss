@@ -92,9 +92,13 @@
               pointer-events: none;
             }
 
-            &[data-status="selected"] {
+            &[data-status="booked"] {
               background: rgb(185, 82, 82);
               pointer-events: none;
+            }
+
+            &[data-status="selected"] {
+              background: rgb(66, 165, 99);
             }
           }
         }

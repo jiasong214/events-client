@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { createBooking } from '../services/bookings';
 import { getEvent } from '../services/events';
 import '../style/eventInfo.scss';
 
@@ -15,26 +16,69 @@ const EventInfo = () => {
 
     getEvent(eventID)
       .then(data => {
+        // 1. set event info
         setEvent(data);
-        setBookedSeats(JSON.parse(data.bookings));
+
+        // 2. iterate all booking object's seat and map it
+        data.bookings.forEach((booking) => {
+          const userID = booking.user;
+
+          booking.seats.forEach((seat) => {
+            const newObj = {};
+            newObj[seat] = userID;
+
+            setBookedSeats((prev => ({...prev, ...newObj})));
+          });
+        });
+
       });
   }, [params.id]);
 
-  
+
   const clickSeat = (seatID) => {
     if(selectedSeats[seatID]) {
-      // if it was selected, remove the seat from the object
+      // if it was already selected, remove the seat from the object
       delete selectedSeats[seatID];
+
+      setSelectedSeats({...selectedSeats});
     }else {
       // if not, add the seat to the object
       const obj = {};
-      obj[seatID] = "";
+      obj[seatID] = "selected";
 
       setSelectedSeats((seats) => ({...seats, ...obj}));
     }
-
-    console.log(selectedSeats)
   }
+
+  const setSeatStatus = (seatID) => {
+    if(bookedSeats === {} && selectedSeats === {}) return "available";
+
+    const userID = '622c935180eeaf9c4468603f';
+    
+    if(bookedSeats[seatID] === userID) {
+      return "booked";
+    }else if(bookedSeats[seatID]) {
+      return "taken";
+    }else if(selectedSeats[seatID]) {
+      return "selected";
+    }else {
+      return "available";
+    }
+  }
+
+  const clickBook = (eventID) => {
+    const userID = '622c935180eeaf9c4468603f'
+    const seatsArr = Object.keys(selectedSeats);
+
+
+    // 1. pass the eventID, userID, and seatsArr
+    // booking data will looks like {event: eventID, user: userID, seats: ["1-1", "2-2"]}
+    // And it will connect to user and event
+    // when i draw a seat map, i need to iterate 2 nested array to find "taken", "booked" seats
+    createBooking(userID, eventID, seatsArr)
+      .then(data => console.log(data))
+  }
+
 
   return (
     <>
@@ -59,20 +103,10 @@ const EventInfo = () => {
                   <span className="row" key={i}>
                     {
                       new Array(event.room.cols).fill('').map((seat, j) => (
-                        <span 
+                        <span
+                          key={`${i}-${j}`}
                           className='seat'
-                          data-status={
-                            bookedSeats[`${i}-${j}`] 
-                            ? 
-                            "taken" 
-                            :
-                            selectedSeats[`${i}-${j}`]
-                            ?
-                            "selected"
-                            :
-                            "available"
-                          }
-                          key={j}
+                          data-status={setSeatStatus(`${i}-${j}`)}
                           onClick={() => clickSeat(`${i}-${j}`)}
                         >
                           {`${i}-${j}`}
@@ -82,6 +116,23 @@ const EventInfo = () => {
                   </span>
                 ))
               }
+            </div>
+            <div className="bookSeats">
+              <h2>Book the ticket</h2>
+              <p>Selected seats</p>
+              <ul>
+                {
+                  Object.keys(selectedSeats).map((seat) => (
+                    <li key={seat}>{seat}</li>
+                  ))
+                }
+              </ul>
+              <div className="totalPrice">
+                $120
+              </div>
+              <button onClick={() => clickBook(event._id)}>
+                Buy a ticket
+              </button>
             </div>
           </div>
         </div>
