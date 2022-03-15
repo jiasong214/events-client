@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import '../style/header.scss';
 
 const Header = () => {
   const location = useLocation();
+  const user = useSelector(state => state.user?.data);
   const [path, setPath] = useState("");
 
   useEffect(() => {
@@ -23,12 +25,6 @@ const Header = () => {
       </h1>
       <nav>
         <Link
-            to='/login'
-            className={path === '/login' ? "login active" : "login"}
-          >
-            Login
-        </Link>
-        <Link
           to='events'
           className={path.startsWith('/events') ? "active" : ""}
         >
@@ -40,12 +36,25 @@ const Header = () => {
         >
           Wishlist
         </Link>
-        <Link
-          to='/mypage'
-          className={path === '/mypage' ? "active" : ""}
-        >
-          My Page
-        </Link>
+
+        {
+          user._id
+          ?
+          <Link
+            to='/mypage'
+            className={path === '/mypage' ? "active" : ""}
+          >
+            My Page
+          </Link>
+          :
+          <Link
+            to='/login'
+            className={path === '/login' ? "active" : ""}
+          >
+            Login
+          </Link>
+        }
+        
       </nav>
     </header>
   )

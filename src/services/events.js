@@ -6,9 +6,7 @@ export const getEvents = async () => {
   });
 }
 
-export const getEventsByType = async (type) => {
-  console.log(type);
-  
+export const getEventsByType = async (type) => {  
   return http(`/event/type/${type}`, {
     method: "GET",
     body: {type}

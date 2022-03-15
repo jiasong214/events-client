@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { getEvents, getEventsByType } from '../services/events';
 import { addWishlistItem, getUserInfo } from '../services/users';
@@ -7,7 +8,7 @@ import '../style/eventsList.scss';
 const EventsList = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
+  const user = useSelector(state => state.user?.data);
   const [events, setEvents] = useState([]);
 
   // fetch event by event type
@@ -24,21 +25,17 @@ const EventsList = () => {
   }, [searchParams]);
 
   const clickWishlist = async (eventID) => {
-    // 1. get user id
-    const tempID = '622c935180eeaf9c4468603f';
+    // 1. if user is not logged in, redirect them to login page
+    if(!user._id) navigate('/login');
 
-    // 2. if user is not logged in, redirect them to login page
-    // navigate('/login');
-
-    // 3. check if its in the wishlist
-    const userInfo = await getUserInfo(tempID);
+    // 2. check if its in the wishlist
+    const userInfo = await getUserInfo(user._id);
     const isExist = userInfo.wishlist.some((item) => item._id === eventID);
     
-    if(isExist) return window.alert("This item is already in the wishlist")
+    if(isExist) return window.alert("This item is already in the wishlist");
 
-    // 4. add event in user's wishlist
-    addWishlistItem(tempID, eventID)
-      .then((data) => console.log(data))
+    // 3. add event in user's wishlist
+    addWishlistItem(user._id, eventID);
   }
 
   const checkExpired = (eventDate) => {

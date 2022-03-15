@@ -41,10 +41,7 @@ export const me = () => dispatch => {
   dispatch(pendingUserFetch());
 
   api.me()
-    .then((data) => {
-      console.log(data)
-      dispatch(succeedUserFetch(data))
-    })
+    .then((data) => dispatch(succeedUserFetch(data)))
     .catch((err) => dispatch(failUserFetch(err)));
 }
 

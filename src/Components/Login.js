@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { login } from '../store/modules/user';
-// import { login } from '../services/users';
 import '../style/login.scss';
 
 const Login = ({isLogin, swapForm}) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector(state => state.user?.data);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,12 +17,16 @@ const Login = ({isLogin, swapForm}) => {
   const submitForm = (e) => {
     e.preventDefault();
 
-    // login(email, password);
     dispatch(login(email, password));
 
     setEmail("");
     setPassword("");
   }
+
+  // if a user is logged in, redirect them to index page
+  useEffect(() => {
+    if(user._id) navigate("/");
+  }, [user]);
 
   return (
     <>

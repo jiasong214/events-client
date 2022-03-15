@@ -6,21 +6,20 @@ import '../style/wishlist.scss';
 
 const Wishlist = () => {
   const navigate = useNavigate();
-  const user = useSelector(state => state.user.data);
+  const user = useSelector(state => state.user?.data);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     // 1. check login status
-    // if(!user?.id) navigate("/login");
-    console.log(user.id)
+    if(!user._id) navigate("/login");
 
     // 2. fetch data
-    getUserInfo(user.id)
+    getUserInfo(user._id)
       .then((data) => setEvents(data.wishlist));
-  }, []);
+  }, [user]);
 
   const clickDelete = async (eventID) => {
-    removeWishlistItem(user.id, eventID)
+    removeWishlistItem(user._id, eventID)
       .then((data) => setEvents([...data.wishlist]));
   }
 

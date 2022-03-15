@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { signup } from '../services/users';
 import '../style/login.scss';
 
 const Signup = ({isLogin, swapForm}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector(state => state.user?.data);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmed, setPasswordConfirmed] = useState(true);
@@ -27,13 +30,17 @@ const Signup = ({isLogin, swapForm}) => {
     if(!passwordConfirmed) return;
 
     // api request
-    // signup(email, password);
     dispatch(signup(email, password));
 
     // reset input
     setEmail("");
     setPassword("");
   }
+
+  // if a user is logged in, redirect them to index page
+  useEffect(() => {
+    if(user._id) navigate("/");
+  }, [user]);
 
   return (
     <>

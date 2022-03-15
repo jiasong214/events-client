@@ -6,14 +6,15 @@ import '../style/adminEventsList.scss';
 
 const AdminEventsList = () => {
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user?.data);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     // 1. check user's status
-    console.log(user)
+    // if(user.type !== "admin") navigate("/");
+    // console.log(user);
 
-    // 2. 
+    // 2. fetch events
     getEvents()
       .then((data) => setEvents(data));
   }, []);

@@ -1,6 +1,8 @@
 @import "./global.scss";
 
 .wishlist {
+  min-height: calc(100vh - 67px - 160px);
+
   h2 {
     padding: $base-padding;
     border-bottom: 1px solid black;
