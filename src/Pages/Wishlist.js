@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { getUserInfo, removeWishlistItem } from '../services/users';
 import '../style/wishlist.scss';
 
 const Wishlist = () => {
   const navigate = useNavigate();
+  const user = useSelector(state => state.user.data);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     // 1. check login status
+    // if(!user?.id) navigate("/login");
+    console.log(user.id)
 
-    // 2. 
-    const userID = '622c935180eeaf9c4468603f'
-
-    getUserInfo(userID)
+    // 2. fetch data
+    getUserInfo(user.id)
       .then((data) => setEvents(data.wishlist));
   }, []);
 
   const clickDelete = async (eventID) => {
-
-    const userID = '622c935180eeaf9c4468603f'
-
-    removeWishlistItem(userID, eventID)
+    removeWishlistItem(user.id, eventID)
       .then((data) => setEvents([...data.wishlist]));
   }
 

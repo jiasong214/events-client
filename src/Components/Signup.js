@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { signup } from '../services/users';
 import '../style/login.scss';
 
 const Signup = ({isLogin, swapForm}) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmed, setPasswordConfirmed] = useState(true);
@@ -25,7 +27,8 @@ const Signup = ({isLogin, swapForm}) => {
     if(!passwordConfirmed) return;
 
     // api request
-    signup(email, password);
+    // signup(email, password);
+    dispatch(signup(email, password));
 
     // reset input
     setEmail("");

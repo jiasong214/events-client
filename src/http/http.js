@@ -1,7 +1,18 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:8080"
+const BASE_URL = "http://localhost:8080";
+
+const setHeader = () => {
+  const token = localStorage.getItem("token");
+
+  if(token) {
+    axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
+  }
+}
 
 const http = async (url, options) => {
+  // set header if there is a token in local storage
+  setHeader();
+  
   let res;
 
   try {

@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteEvent, getEvents } from '../services/events';
 import '../style/adminEventsList.scss';
 
 const AdminEventsList = () => {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
     // 1. check user's status
+    console.log(user)
 
     // 2. 
     getEvents()

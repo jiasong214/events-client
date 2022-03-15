@@ -1,5 +1,10 @@
 import http from '../http/http';
 
+// TODO: set header after login , and signup
+const setHeader = () => {
+
+}
+
 export const signup = async (email, password) => {
   return http('/user/signup', {
     method: "POST",
@@ -19,6 +24,15 @@ export const login = async (email, password) => {
     localStorage.setItem("token", data.token);
 
     return data;
+  });
+}
+
+export const me = async () => {
+  // const token = localStorage.getItem("token");
+
+  return http('/user/me', {
+    method: "GET",
+    // headers: { Authorization: `Bearer ${token}` },
   });
 }
 

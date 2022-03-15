@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import { login } from '../services/users';
+import { useDispatch } from 'react-redux';
+import { login } from '../store/modules/user';
+// import { login } from '../services/users';
 import '../style/login.scss';
 
 const Login = ({isLogin, swapForm}) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,7 +15,8 @@ const Login = ({isLogin, swapForm}) => {
   const submitForm = (e) => {
     e.preventDefault();
 
-    login(email, password);
+    // login(email, password);
+    dispatch(login(email, password));
 
     setEmail("");
     setPassword("");
