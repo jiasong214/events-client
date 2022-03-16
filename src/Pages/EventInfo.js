@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createBooking } from '../services/bookings';
 import { getEvent } from '../services/events';
 import '../style/eventInfo.scss';
 
 const EventInfo = () => {
   const params = useParams();
+  const navigate = useNavigate();
+  const user = useSelector(state => state.user?.data);
   const [event, setEvent] = useState();
   const [bookedSeats, setBookedSeats] = useState({});
   const [selectedSeats, setSelectedSeats] = useState({});
@@ -52,10 +55,8 @@ const EventInfo = () => {
 
   const setSeatStatus = (seatID) => {
     if(bookedSeats === {} && selectedSeats === {}) return "available";
-
-    const userID = '622c935180eeaf9c4468603f';
     
-    if(bookedSeats[seatID] === userID) {
+    if(bookedSeats[seatID] === user?._id) {
       return "booked";
     }else if(bookedSeats[seatID]) {
       return "taken";
@@ -67,15 +68,13 @@ const EventInfo = () => {
   }
 
   const clickBook = (eventID) => {
-    const userID = '622c935180eeaf9c4468603f'
+    // check if user is logged in first
+    if(!user) navigate('/login');
+
+
     const seatsArr = Object.keys(selectedSeats);
 
-
-    // 1. pass the eventID, userID, and seatsArr
-    // booking data will looks like {event: eventID, user: userID, seats: ["1-1", "2-2"]}
-    // And it will connect to user and event
-    // when i draw a seat map, i need to iterate 2 nested array to find "taken", "booked" seats
-    createBooking(userID, eventID, seatsArr)
+    createBooking(user._id, eventID, seatsArr)
       .then(data => console.log(data))
   }
 

@@ -13,6 +13,7 @@ const CreateEvent = () => {
   const [time, setTime] = useState("");
   const [room, setRoom] = useState("");
   const [info, setInfo] = useState("");
+  const [image, setImage] = useState("");
 
   const changeName = (e) => setName(e.target.value);
   const changeType = (e) => setType(e.target.value);
@@ -20,6 +21,7 @@ const CreateEvent = () => {
   const changeTime = (e) => setTime(e.target.value);
   const changeRoom = (e) => setRoom(e.target.value);
   const changeInfo = (e) => setInfo(e.target.value);
+  const changeImage = (e) => setImage(e.target.files[0]);
 
   const createDate = (date, time) => {
     const dateArr = date.split("-");
@@ -32,19 +34,39 @@ const CreateEvent = () => {
     return new Date(dateArr[0], month, dateArr[2], hour, timeArr[1]);
   }
 
-  const submitForm = (e) => {
+  const uploadImage = async (file) => {
+    const imgData = new FormData();
+
+    imgData.append("file", file);
+    imgData.append("upload_preset", "ml_default");
+    imgData.append("cloud_name","dwhhlicmv");
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/dwhhlicmv/image/upload", {
+      method:"POST",
+      body: imgData
+    });
+
+    const data = await res.json();
+
+    return data.url;
+  }
+
+  const submitForm = async (e) => {
     e.preventDefault();
 
     if(!name || !type || !date || !time || !room || !info) {
       return;
     }
 
+    const imageURL = await uploadImage(image);
+
     createEvent({
       name, 
       type, 
       date: createDate(date, time), 
       room, 
-      info
+      info,
+      image: imageURL
     });
 
     navigate('/admin');
@@ -106,7 +128,11 @@ const CreateEvent = () => {
           </select>
         </div>
 
-        {/* TODO: image upload */}
+        <input  
+          type="file" 
+          onChange= {(e)=> changeImage(e)} 
+        />
+
         <textarea 
           rows="20"
           value={info}

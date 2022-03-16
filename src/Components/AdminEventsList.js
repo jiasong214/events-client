@@ -54,7 +54,7 @@ const AdminEventsList = () => {
           events && events.map((event) => (
             <li key={event._id}>
               <div className='imgBox'>
-
+                <img src={event.image} alt={event.name} />
               </div>
               <div className='textBox'>
                 <span className="eventType">{event.type}</span>

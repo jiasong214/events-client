@@ -9,6 +9,7 @@ a {
   text-decoration: none;
 }
 
+// basic setting
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
 
 :root {
@@ -21,4 +22,22 @@ a {
   width: 100vw;
 }
 
+// variables
 $base-padding: 30px;
+
+// common attributes
+.imgBox {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
