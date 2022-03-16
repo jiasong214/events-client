@@ -10,7 +10,7 @@ const EventInfo = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user?.data);
   const [event, setEvent] = useState();
-  const [bookedSeats, setBookedSeats] = useState({});
+  const [takenSeats, setTakenSeats] = useState({});
   const [selectedSeats, setSelectedSeats] = useState({});
 
   // fetch event info
@@ -30,7 +30,7 @@ const EventInfo = () => {
             const newObj = {};
             newObj[seat] = userID;
 
-            setBookedSeats((prev => ({...prev, ...newObj})));
+            setTakenSeats((prev => ({...prev, ...newObj})));
           });
         });
 
@@ -54,11 +54,11 @@ const EventInfo = () => {
   }
 
   const setSeatStatus = (seatID) => {
-    if(bookedSeats === {} && selectedSeats === {}) return "available";
+    if(takenSeats === {} && selectedSeats === {}) return "available";
     
-    if(bookedSeats[seatID] === user?._id) {
+    if(takenSeats[seatID] === user?._id) {
       return "booked";
-    }else if(bookedSeats[seatID]) {
+    }else if(takenSeats[seatID]) {
       return "taken";
     }else if(selectedSeats[seatID]) {
       return "selected";
@@ -75,7 +75,21 @@ const EventInfo = () => {
     const seatsArr = Object.keys(selectedSeats);
 
     createBooking(user._id, eventID, seatsArr)
-      .then(data => console.log(data))
+      .then(data => {
+        // const seatObj = {};
+
+        // seatsArr.forEach((seat) => {
+        //   seatObj[seat] = user._id;
+        // });
+
+        // console.log(data, seatObj)
+      })
+  }
+
+  const getTotalPrice = (price) => {
+    const selectedSeatsNum = Object.keys(selectedSeats).length;
+
+    return parseInt(price) * selectedSeatsNum;
   }
 
 
@@ -83,19 +97,36 @@ const EventInfo = () => {
     <>
       {event &&
         <div className="eventInfo">
-          <div className='imgBox'>
-          </div>
           <div className='textBox'>
-            <span>{event.type}</span>
-            <div>
+            <div className='event-info'>
+              <span>{event.type}</span>
               <h2>{event.name}</h2>
               <p>{event.date}</p>
             </div>
+            <div className="seat-info">
+              {
+                Object.keys(selectedSeats).length ?
+                  <p>Selected seats</p> : ""
+              }
+              <ul>
+                {
+                  Object.keys(selectedSeats).map((seat) => (
+                    <li key={seat}>{seat}</li>
+                  ))
+                }
+              </ul>
+            </div>
+            <div className="ticket-info">
+              <p>${getTotalPrice(event.price)}</p>
+              <button onClick={() => clickBook(event._id)}>
+                Buy a ticket
+              </button>
+            </div>
           </div>
+         
           <div className='bookingBox'>
-            <h2>Book the seat</h2>
-            <p>{event.room.name}</p>
             <div className='seatMap'>
+              <span className='room'>{event.room.name}</span>
               <span className='stage'>Stage</span>
               {
                 new Array(event.room.rows).fill('').map((row, i) => (
@@ -115,23 +146,6 @@ const EventInfo = () => {
                   </span>
                 ))
               }
-            </div>
-            <div className="bookSeats">
-              <h2>Book the ticket</h2>
-              <p>Selected seats</p>
-              <ul>
-                {
-                  Object.keys(selectedSeats).map((seat) => (
-                    <li key={seat}>{seat}</li>
-                  ))
-                }
-              </ul>
-              <div className="totalPrice">
-                $120
-              </div>
-              <button onClick={() => clickBook(event._id)}>
-                Buy a ticket
-              </button>
             </div>
           </div>
         </div>

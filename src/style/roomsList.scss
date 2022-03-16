@@ -2,7 +2,7 @@
 
 .roomsList {
   .addBtnBar {
-    padding: 10px $base-padding;
+    padding: 10px $base-gap;
     background: black;
 
     a {
@@ -20,7 +20,7 @@
     grid-template-columns: repeat(4, 1fr);
 
     li {
-      padding: $base-padding;
+      padding: $base-gap;
       border: 1px solid black;
 
       .textBox {
@@ -40,7 +40,7 @@
       }
 
       .seatBox {
-        padding: $base-padding;
+        padding: $base-gap;
         background-color: rgb(224, 224, 224);
       }
 

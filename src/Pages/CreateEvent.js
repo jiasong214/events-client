@@ -14,6 +14,7 @@ const CreateEvent = () => {
   const [room, setRoom] = useState("");
   const [info, setInfo] = useState("");
   const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
 
   const changeName = (e) => setName(e.target.value);
   const changeType = (e) => setType(e.target.value);
@@ -21,6 +22,7 @@ const CreateEvent = () => {
   const changeTime = (e) => setTime(e.target.value);
   const changeRoom = (e) => setRoom(e.target.value);
   const changeInfo = (e) => setInfo(e.target.value);
+  const changePrice = (e) => setPrice(e.target.value);
   const changeImage = (e) => setImage(e.target.files[0]);
 
   const createDate = (date, time) => {
@@ -66,6 +68,7 @@ const CreateEvent = () => {
       date: createDate(date, time), 
       room, 
       info,
+      price,
       image: imageURL
     });
 
@@ -128,6 +131,16 @@ const CreateEvent = () => {
           </select>
         </div>
 
+        <div className='priceInput'>
+          <input
+            type="number"
+            placeholder='Ticket price'
+            required={true}
+            onChange={(e) => changePrice(e)}
+          />
+          <label>AUD</label>
+        </div>
+
         <input  
           type="file" 
           onChange= {(e)=> changeImage(e)} 
@@ -138,6 +151,7 @@ const CreateEvent = () => {
           value={info}
           onChange={(e) => changeInfo(e)}
         />
+
         <button type="submit">Submit</button>
       </form>
     </section>

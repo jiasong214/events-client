@@ -13,8 +13,10 @@ const MainEvent = () => {
           <Link to="/">Book</Link>
         </div>
       </div>
-      <div className="imgBox">
-
+      <div className="img-container">
+        <div className="imgBox">
+          <img />
+        </div>
       </div>
     </section>
   )

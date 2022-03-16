@@ -9,11 +9,21 @@
     grid-template-rows: repeat(2, 1fr);
 
     .eventItem {
-      padding: $base-padding;
-      transition: 0.5s;
+      a {
+        display: block;
+        padding: $base-gap;
+        transition: 0.5s;
+        display: grid;
+        grid-auto-rows: min-content;
+        gap: 20px;
+      }
 
       &:nth-child(1) {
         grid-area: 1/1/3/3;
+
+        .imgBox {
+          aspect-ratio: 1/1;
+        }
       }
 
       &:nth-child(1),
@@ -27,17 +37,24 @@
         border-bottom: 1px solid black;
       }
 
-      span {
+      .eventType {
         display: inline-block;
-        margin-bottom: 20px;
+        padding-left: 20px;
         font-size: 1.6rem;
-      }
+        text-transform: capitalize;
+        position: relative;
 
-      .imgBox {
-        width: 100%;
-        height: 200px;
-        margin-bottom: 20px;
-        background-color: gray;
+        &::before {
+          display: block;
+          content: "";
+          width: 10px;
+          height: 10px;
+          background: black;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+        }
       }
 
       h3 {
@@ -55,12 +72,16 @@
         background: black;
         color: white;
         transition: 0.5s;
+
+        .eventType::before {
+          background-color: white;
+        }
       }
     }
   }
 
   .moreEventsBanner {
-    padding: $base-padding 0;
+    padding: $base-gap 0;
     height: 160px;
     overflow: hidden;
     background: #f1a93e;

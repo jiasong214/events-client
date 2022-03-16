@@ -6,7 +6,7 @@
   border-top: 1px solid black;
 
   .textBox {
-    padding: $base-padding;
+    padding: $base-gap;
     border-right: 1px solid black;
 
     h3 {
@@ -41,12 +41,12 @@
     }
   }
 
-  .imgBox {
-    padding: $base-padding;
+  .img-container {
+    padding: $base-gap;
 
-    .img-container {
-      height: 500px;
-      background-color: gray;
-    }
+    // .img-container {
+    //   height: 500px;
+    //   background-color: gray;
+    // }
   }
 }

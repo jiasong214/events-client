@@ -59,7 +59,7 @@ const EventsList = () => {
               className={checkExpired(event.date)}
             >
               <div className='imgBox'>
-
+                <img src={event.image} alt={event.name} />
               </div>
               <div className='textBox'>
                 <span className="eventType">{event.type}</span>

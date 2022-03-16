@@ -1,7 +1,7 @@
 @import "./global.scss";
 
 .mainEvent {
-  padding: $base-padding;
+  padding: $base-gap;
   display: grid;
   grid-template-columns: 5fr 5fr;
 
@@ -38,9 +38,7 @@
     }
   }
 
-  .imgBox {
+  .img-container {
     width: 100%;
-    min-height: 70vh;
-    background: gray;
   }
 }

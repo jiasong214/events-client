@@ -23,11 +23,13 @@ a {
 }
 
 // variables
-$base-padding: 30px;
+$base-gap: 30px;
 
 // common attributes
 .imgBox {
   width: 100%;
+  aspect-ratio: 4/3;
+  background-color: gray;
   position: relative;
   overflow: hidden;
 

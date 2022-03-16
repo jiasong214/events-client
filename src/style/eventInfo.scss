@@ -1,26 +1,41 @@
 @import "./global.scss";
 
 .eventInfo {
-  padding: $base-padding;
-
-  .imgBox {
-    width: 100%;
-    height: 500px;
-    background-color: gray;
-  }
+  padding: $base-gap;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: $base-gap;
 
   .textBox {
-    margin: 30px 0;
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-rows: 1fr auto auto;
+    gap: $base-gap;
 
-    span {
-      font-size: 1.8rem;
-      font-weight: 900;
-      text-transform: uppercase;
+    > * {
+      display: grid;
+      grid-auto-rows: min-content;
+      gap: 10px;
     }
 
-    div {
+    .event-info {
+      span {
+        padding-left: 20px;
+        font-size: 1.8rem;
+        position: relative;
+
+        &::before {
+          display: block;
+          content: "";
+          width: 10px;
+          height: 10px;
+          background: black;
+          position: absolute;
+          top: 50%;
+          left: 0;
+          transform: translateY(-50%);
+        }
+      }
+
       h2 {
         font-size: 4.8rem;
         font-weight: 900;
@@ -29,31 +44,76 @@
 
       p {
         font-size: 2.8rem;
-        // font-weight: 900;
         text-transform: uppercase;
+      }
+    }
+
+    .seat-info {
+      p {
+        font-size: 2.4rem;
+        text-transform: uppercase;
+      }
+
+      li {
+        display: inline-block;
+        width: 40px;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        padding: 10px 0;
+        background-color: rgb(66, 165, 99);
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+        border-radius: 10px;
+        font-size: 1.8rem;
+        text-align: center;
+      }
+    }
+
+    .ticket-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: $base-gap;
+      border-top: 1px solid rgb(206, 206, 206);
+
+      p {
+        font-size: 4.2rem;
+      }
+
+      button {
+        all: unset;
+        display: block;
+        width: fit-content;
+        padding: 10px;
+        border: 1px solid black;
+        background-color: black;
+        font-size: 2.4rem;
+        color: white;
+        text-transform: uppercase;
+        cursor: pointer;
+
+        &:hover {
+          background-color: white;
+          color: black;
+        }
       }
     }
   }
 
   .bookingBox {
-    // margin-left: 240px;
-
-    h2 {
-      font-size: 2.4rem;
-    }
-
-    p {
-      font-size: 1.8rem;
-    }
-
     .seatMap {
-      padding: $base-padding;
-      max-height: calc(100vh - 180px);
+      padding: $base-gap;
+      min-height: calc(100vh - 180px - 160px);
       overflow: scroll;
       background-color: rgb(238, 237, 237);
 
       span {
         display: block;
+
+        &.room {
+          margin-bottom: $base-gap;
+          font-size: 2.4rem;
+        }
 
         &.stage {
           width: 100%;
@@ -77,7 +137,6 @@
           .seat {
             width: 100%;
             min-width: 30px;
-            // max-width: 50px;
             height: 30px;
             background-color: white;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
