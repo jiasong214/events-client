@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { convertDateFromData } from '../helper/convertDate';
 import { getEvents } from '../services/events';
 import '../style/currentEvents.scss';
 
@@ -10,6 +11,7 @@ const CurrentEvents = () => {
     getEvents()
       .then((data) => setEvents(data));
   }, []);
+
 
   return (
     <section className="currentEvents">
@@ -28,7 +30,7 @@ const CurrentEvents = () => {
                   </div>
                   <div className='textBox'>
                     <h3>{event.name}</h3>
-                    <p>{event.date}</p>
+                    <p>{convertDateFromData(event.date)}</p>
                   </div>
                 </Link>
               </li>

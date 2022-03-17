@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import UserInfo from '../Components/UserInfo';
 import { convertDateFromData } from '../helper/convertDate';
 import { getUserInfo, removeWishlistItem } from '../services/users';
-import '../style/wishlist.scss';
+import '../style/mypage.scss';
 
-const Wishlist = () => {
+const MyPage = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user?.data);
   const [events, setEvents] = useState([]);
@@ -25,8 +26,10 @@ const Wishlist = () => {
   }
 
   return (
-    <section className='wishlist'>
-      <h2>Wishlist</h2>
+    <section className='mypage'>
+      <h2>My page</h2>
+      <UserInfo />
+
       <ul>
         {
           events && events.map((event) => (
@@ -49,8 +52,9 @@ const Wishlist = () => {
           ))
         }
       </ul>
+
     </section>
   )
 };
 
-export default Wishlist;
+export default MyPage;

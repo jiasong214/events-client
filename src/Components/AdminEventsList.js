@@ -39,14 +39,11 @@ const AdminEventsList = () => {
       </div>
       <div className="viewOptionBar">
         <div className="filters">
+          <button>All</button>
+          <button>Concert</button>
           <button>Musical</button>
           <button>Comedy</button>
           <button>Drama</button>
-          <button>Family</button>
-        </div>
-        <div className="sorts">
-          <button>Most popular</button>
-          <button>Date</button>
         </div>
       </div>
       <ul>

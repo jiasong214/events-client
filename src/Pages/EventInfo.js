@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { convertDateFromData } from '../helper/convertDate';
 import { createBooking } from '../services/bookings';
 import { getEvent } from '../services/events';
 import '../style/eventInfo.scss';
@@ -56,7 +57,7 @@ const EventInfo = () => {
   const setSeatStatus = (seatID) => {
     if(takenSeats === {} && selectedSeats === {}) return "available";
     
-    if(takenSeats[seatID] === user?._id) {
+    if(takenSeats[seatID] && takenSeats[seatID] === user?._id) {
       return "booked";
     }else if(takenSeats[seatID]) {
       return "taken";
@@ -101,7 +102,7 @@ const EventInfo = () => {
             <div className='event-info'>
               <span>{event.type}</span>
               <h2>{event.name}</h2>
-              <p>{event.date}</p>
+              <p>{convertDateFromData(event.date)}</p>
             </div>
             <div className="seat-info">
               {

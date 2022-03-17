@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createRoom } from '../services/rooms';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { createRoom, updateRoom, getRoom } from '../services/rooms';
 import '../style/createEvent.scss';
 
 const CreateRoom = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const [name, setName] = useState("");
   const [rows, setRows] = useState("");
   const [cols, setCols] = useState("");
+
+  // set the states if its edit form page
+  useEffect(() => {
+    const roomID = params.id;
+    if(!roomID) return;
+
+    getRoom(roomID)
+      .then((data) => {
+        setName(data.name);
+        setRows(data.rows);
+        setCols(data.cols);
+      })
+  }, [params]);
 
   const changeName = (e) => setName(e.target.value);
   const changeRows = (e) => setRows(e.target.value);
@@ -18,17 +32,25 @@ const CreateRoom = () => {
 
     if(!name || !rows || !cols) return;
 
+    params.id ? editRoom() : createRoom();
+
+    navigate("/admin");
+  }
+
+  const createRoom = async () => {
     createRoom({
       name, 
       rows: parseInt(rows), 
       cols: parseInt(cols),
     });
+  }
 
-    setName("");
-    setRows("");
-    setCols("");
-
-    navigate("/admin");
+  const editRoom = async () => {
+    updateRoom(params.id, {
+      name, 
+      rows: parseInt(rows), 
+      cols: parseInt(cols),
+    });
   }
 
   return (

@@ -1,0 +1,14 @@
+@import "./global.scss";
+
+.mypage {
+  min-height: calc(100vh - 67px - 160px);
+
+  h2 {
+    padding: $base-gap;
+    border-bottom: 1px solid black;
+    font-size: 4.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+  }
+}

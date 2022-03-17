@@ -8,6 +8,7 @@ import Wishlist from './Pages/Wishlist';
 import Admin from './Pages/Admin';
 import CreateEvent from './Pages/CreateEvent';
 import CreateRoom from './Pages/CreateRoom';
+import MyPage from './Pages/MyPage';
 
 const Routers = () => {
   return (
@@ -18,6 +19,7 @@ const Routers = () => {
       <Route path="/events?type=:type" element={<Events />} />
       <Route path="/event/:id" element={<EventInfo />} />
       <Route path="/wishlist" element={<Wishlist />} />
+      <Route path="/mypage" element={<MyPage />} />
 
       <Route path="/admin" element={<Admin />} />
       <Route path="/admin/event/new" element={<CreateEvent />} />

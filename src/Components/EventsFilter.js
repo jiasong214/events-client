@@ -20,6 +20,12 @@ const EventsFilter = () => {
           All
         </Link>
         <Link
+          to="/events?type=concert"
+          className={type === "concert" ? "active" : ""}
+        >
+          Concert
+        </Link>
+        <Link
           to="/events?type=musical"
           className={type === "musical" ? "active" : ""}
         >
@@ -36,12 +42,6 @@ const EventsFilter = () => {
           className={type === "drama" ? "active" : ""}
         >
           Drama
-        </Link>
-        <Link
-          to="/events?type=family"
-          className={type === "family" ? "active" : ""}
-        >
-          Family
         </Link>
       </div>
     </div>
