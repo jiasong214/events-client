@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { convertDateFromData } from '../helper/convertDate';
+import { checkExpired } from '../helper/checkExpired';
+import { convertDateFromData, getDateName } from '../helper/convertDate';
 import { getEvents, getEventsByType } from '../services/events';
 import { addWishlistItem, getUserInfo } from '../services/users';
 import '../style/eventsList.scss';
@@ -27,13 +28,6 @@ const EventsList = () => {
   }, [searchParams]);
 
 
-  const checkExpired = (eventDate) => {
-    const today = new Date().getTime();
-    const targetDate = new Date(eventDate).getTime();
-
-    return today > targetDate ? "expired" : "ongoing";
-  }
-
   const clickWishlist = async (eventID) => {
     // 1. if user is not logged in, redirect them to login page
     if(!user._id) navigate('/login');
@@ -48,17 +42,14 @@ const EventsList = () => {
     addWishlistItem(user._id, eventID);
   }
 
-
-
   const createArrayByDate = (events) => {
-
     const resultArr = [];
     let innerArr = [];
 
     let currentDate = events[0]?.date?.slice(0,10);
     setDateArr(prev => [...prev, events[0]?.date]);
 
-    events.forEach((event) => {
+    events.forEach((event, index) => {
       let date = event.date.slice(0,10);
 
       if(currentDate === date) {
@@ -71,22 +62,13 @@ const EventsList = () => {
 
         setDateArr(prev => [...prev, event.date.slice(0,10)]);
       }
+
+      if(events.length-1 === index) {
+        resultArr.push(innerArr);
+      }
     })
 
     setEvents(resultArr);
-  }
-
-  const getDateName = (date) => {
-    const convertedDate = convertDateFromData(date);
-
-    if(convertedDate.startsWith("Today") || convertedDate.startsWith("Tomorrow")) {
-      return convertedDate.split(" ")[0];
-    } else {
-      let month = convertedDate.split(" ")[1];
-      let date = convertedDate.split(" ")[2];
-
-      return `${month} ${date}`;
-    }
   }
 
   return (

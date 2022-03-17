@@ -45,3 +45,8 @@ $base-gap: 30px;
     transform: translate(-50%, -50%);
   }
 }
+
+.expired {
+  opacity: 0.2;
+  pointer-events: none;
+}

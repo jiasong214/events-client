@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertDateFromInput } from '../helper/convertDate';
 import { uploadImage } from '../helper/uploadImage';
@@ -9,6 +10,7 @@ import '../style/createEvent.scss';
 const CreateEvent = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const user = useSelector(state => state.user?.data);
 
   const [allRooms, setAllRooms] = useState([]);
   const [name, setName] = useState("");
@@ -44,6 +46,8 @@ const CreateEvent = () => {
 
   // to create room select tag
   useEffect(() => {
+    if(user?.type !== "admin") return navigate("/login");
+
     getRooms()
       .then(data => setAllRooms(data));
   }, []);
@@ -65,12 +69,12 @@ const CreateEvent = () => {
       return;
     }
 
-    params.id ? editEvent() : createEvent()
+    params.id ? editEvent() : makeEvent()
 
     navigate('/admin');
   }
 
-  const createEvent = async () => {
+  const makeEvent = async () => {
     const imageURL = await uploadImage(image);
 
     createEvent({

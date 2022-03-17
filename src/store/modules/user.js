@@ -46,6 +46,7 @@ export const me = () => dispatch => {
 }
 
 export const logout = () => dispatch => {
+  api.logout();
   dispatch(succeedUserFetch());
 }
 

@@ -1,20 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { deleteEvent, getEvents } from '../services/events';
 import '../style/adminEventsList.scss';
 
 const AdminEventsList = () => {
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.user?.data);
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    // 1. check user's status
-    // if(user.type !== "admin") navigate("/");
-    // console.log(user);
-
-    // 2. fetch events
     getEvents()
       .then((data) => setEvents(data));
   }, []);

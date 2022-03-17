@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { createRoom, updateRoom, getRoom } from '../services/rooms';
 import '../style/createEvent.scss';
@@ -6,9 +7,15 @@ import '../style/createEvent.scss';
 const CreateRoom = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const user = useSelector(state => state.user?.data);
+
   const [name, setName] = useState("");
   const [rows, setRows] = useState("");
   const [cols, setCols] = useState("");
+
+  useEffect(() => {
+    if(user?.type !== "admin") return navigate("/login");
+  }, [user])
 
   // set the states if its edit form page
   useEffect(() => {
@@ -32,12 +39,12 @@ const CreateRoom = () => {
 
     if(!name || !rows || !cols) return;
 
-    params.id ? editRoom() : createRoom();
+    params.id ? editRoom() : makeRoom();
 
     navigate("/admin");
   }
 
-  const createRoom = async () => {
+  const makeRoom = async () => {
     createRoom({
       name, 
       rows: parseInt(rows), 
