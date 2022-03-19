@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { createBooking } from '../services/bookings';
+import { checkPayment } from '../services/payment';
 import "../style/payment.scss";
 
 const Payment = () => {
@@ -16,7 +17,7 @@ const Payment = () => {
 
     if (params.get("success")) {
       setStatus(true);
-      checkPayment();
+      makeBooking();
     }
 
     if (params.get("canceled")) {
@@ -25,20 +26,18 @@ const Payment = () => {
   }, [user, params]);
 
 
-  const checkPayment = async () => {
+  const makeBooking = async () => {
     const session_id = params.get("session_id");
 
-    const session = await axios('http://localhost:8080/payment/success', {
-      method: "POST",
-      data: { session_id }
-    });
+    const session = await checkPayment(session_id);
+    console.log(session)
 
     // if payment process fail, redirect them to cancled page
-    if(session?.data?.payment_status !== "paid") return navigate("/payment?canceled=true");
+    if(session?.payment_status !== "paid") return navigate("/payment?canceled=true");
 
     // if it was succeed, create booking data in DB
-    const eventID = await session.data.metadata?.event_id;
-    const seatsStr = await session.data.metadata?.seats;
+    const eventID = await session.metadata?.event_id;
+    const seatsStr = await session.metadata?.seats;
     const seatsArr = seatsStr?.split(",");
 
     // post the data

@@ -19,7 +19,9 @@ const MyPage = () => {
 
     // 2. fetch data
     getUserInfo(user._id)
-      .then((data) =>getBookingInfo(data.bookings));
+      .then((data) => {
+        getBookingInfo(data.bookings)
+      });
   }, []);
 
   const getBookingInfo = async (bookings) => {
@@ -31,12 +33,11 @@ const MyPage = () => {
       // get each event's info
       getEvent(eventID)
         .then(data => {
-          const newObj = {
-            ...data, seats: booking.seats
-          }
-          setEvents((prev) => ([...prev, newObj]));
-
-          console.log(newObj)
+          setEvents((prev) => ([...prev, {
+            ...data, 
+            seats: booking.seats, 
+            code: booking.paymentID
+          }]));
         });
     });
   }
@@ -55,9 +56,9 @@ const MyPage = () => {
             <h3>My tickets</h3>
             <ul>
             {
-              events.map((event) => (
+              events.map((event, i) => (
                 <li 
-                  key={event._id}
+                  key={i}
                   className={checkExpired(event.date)}
                 >
                   <div className='imgBox'>
@@ -79,7 +80,7 @@ const MyPage = () => {
                         }
                       </div>
                       <div className='ticketCode'>
-                        <p>CODE: </p>
+                        <p>TICKET CODE: {event.code}</p>
                       </div>
                     </div>
                   </div>

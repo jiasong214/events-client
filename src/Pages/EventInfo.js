@@ -1,10 +1,9 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertDateFromData } from '../helper/convertDate';
-import { createBooking } from '../services/bookings';
 import { getEvent } from '../services/events';
+import { requestPayment } from '../services/payment';
 import '../style/eventInfo.scss';
 
 const EventInfo = () => {
@@ -76,21 +75,18 @@ const EventInfo = () => {
     const seatsArr = Object.keys(selectedSeats);
 
     // create a payment
-    const payment = await axios('http://localhost:8080/payment', {
-      'method': "POST",
-      data: {
-        eventID: event._id,
-        eventName: event.name,
-        eventPrice: event.price,
-        quantity: seatsArr.length,
-        seats: seatsArr
-      }
+    const payment = await requestPayment({
+      eventID: event._id,
+      eventName: event.name,
+      eventPrice: event.price,
+      quantity: seatsArr.length,
+      seats: seatsArr
     });
 
-    console.log(payment);
+    console.log(payment)
 
     // redirect to payment page
-    window.location.href = payment.data.url;
+    window.location.href = await payment.url;
   }
 
   const getTotalPrice = (price) => {
