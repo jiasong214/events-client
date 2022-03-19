@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -68,23 +69,28 @@ const EventInfo = () => {
     }
   }
 
-  const clickBook = (eventID) => {
+  const clickBook = async (event) => {
     // check if user is logged in first
-    if(!user) navigate('/login');
-
+    if(!user._id) navigate('/login');
 
     const seatsArr = Object.keys(selectedSeats);
 
-    createBooking(user._id, eventID, seatsArr)
-      .then(data => {
-        // const seatObj = {};
+    // create a payment
+    const payment = await axios('http://localhost:8080/payment', {
+      'method': "POST",
+      data: {
+        eventID: event._id,
+        eventName: event.name,
+        eventPrice: event.price,
+        quantity: seatsArr.length,
+        seats: seatsArr
+      }
+    });
 
-        // seatsArr.forEach((seat) => {
-        //   seatObj[seat] = user._id;
-        // });
+    console.log(payment);
 
-        // console.log(data, seatObj)
-      })
+    // redirect to payment page
+    window.location.href = payment.data.url;
   }
 
   const getTotalPrice = (price) => {
@@ -119,7 +125,7 @@ const EventInfo = () => {
             </div>
             <div className="ticket-info">
               <p>${getTotalPrice(event.price)}</p>
-              <button onClick={() => clickBook(event._id)}>
+              <button onClick={() => clickBook(event)}>
                 Buy a ticket
               </button>
             </div>

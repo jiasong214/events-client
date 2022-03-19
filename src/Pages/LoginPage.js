@@ -12,9 +12,9 @@ const LoginPage = () => {
 
   useEffect(() => {
     console.log(user)
-    // if(user?._id) {
-    //   navigate("/");
-    // }
+    if(user?._id) {
+      navigate("/");
+    }
   }, [user])
 
   const swapForm = () => isLogin ? setIsLogin(false) : setIsLogin(true);

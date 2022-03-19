@@ -49,11 +49,13 @@ const MyPage = () => {
           <h2>My page</h2>
           <UserInfo />
     
+        {
+          events && events.length !== 0 &&
           <div className='bookings'>
             <h3>My tickets</h3>
             <ul>
             {
-              events && events.map((event) => (
+              events.map((event) => (
                 <li 
                   key={event._id}
                   className={checkExpired(event.date)}
@@ -86,6 +88,7 @@ const MyPage = () => {
             }
             </ul>
           </div>
+        }
     
         </section>
       }

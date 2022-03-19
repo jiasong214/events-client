@@ -146,6 +146,10 @@
             line-height: 2;
             cursor: pointer;
 
+            &:hover {
+              background-color: rgba(66, 165, 99, 0.5);
+            }
+
             &[data-status="taken"] {
               background: rgb(185, 185, 185);
               pointer-events: none;

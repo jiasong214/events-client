@@ -11,6 +11,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("me() is running")
     dispatch(me());
   }, [dispatch]);
 

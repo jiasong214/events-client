@@ -1,26 +1,6 @@
 @import "./global.scss";
 
 .eventsList {
-  // .sortBar {
-  //   padding: 0 $base-gap;
-  //   border-bottom: 1px solid black;
-  //   display: flex;
-
-  //   button {
-  //     all: unset;
-  //     display: block;
-  //     padding: 10px $base-gap;
-  //     border-left: 1px solid black;
-  //     font-size: 1.8rem;
-  //     font-weight: 900;
-  //     text-transform: uppercase;
-
-  //     &:first-child {
-  //       margin-left: auto;
-  //     }
-  //   }
-  // }
-
   .scroll-container {
     height: calc(100vh - 67px);
     overflow-y: scroll;
@@ -30,6 +10,37 @@
       display: grid;
       grid-template-columns: 200px 1fr;
       border-bottom: 1px solid black;
+
+      @media (max-width: 1280px) {
+        grid-template-columns: 160px 1fr;
+
+        .date p {
+          font-size: 2.8rem !important;
+        }
+
+        .eventName {
+          font-size: 2.8rem !important;
+        }
+
+        .eventDate {
+          font-size: 2.4rem !important;
+        }
+
+        .btnBox {
+          button,
+          a {
+            font-size: 1.6rem !important;
+          }
+        }
+      }
+
+      @media (max-width: 780px) {
+        display: block;
+
+        .date {
+          display: none;
+        }
+      }
 
       &:last-child {
         border-bottom: none;

@@ -9,6 +9,7 @@ import Admin from './Pages/Admin';
 import CreateEvent from './Pages/CreateEvent';
 import CreateRoom from './Pages/CreateRoom';
 import MyPage from './Pages/MyPage';
+import Payment from './Pages/Payment';
 
 const Routers = () => {
   return (
@@ -20,6 +21,7 @@ const Routers = () => {
       <Route path="/event/:id" element={<EventInfo />} />
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/mypage" element={<MyPage />} />
+      <Route path="/payment" element={<Payment />} />
 
       <Route path="/admin" element={<Admin />} />
       <Route path="/admin/event/new" element={<CreateEvent />} />
