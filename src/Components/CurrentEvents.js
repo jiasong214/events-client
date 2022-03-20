@@ -37,10 +37,6 @@ const CurrentEvents = () => {
           ))
         }
       </ul>
-{/* 
-      <div className="moreEventsBanner">
-        <Link to="/events">More events</Link>
-      </div> */}
     </section>
   )
 };

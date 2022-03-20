@@ -3,7 +3,6 @@
 .currentEvents {
   ul {
     border-top: 1px solid black;
-    border-bottom: 1px solid black;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(2, 1fr);
@@ -94,39 +93,6 @@
           background-color: white;
         }
       }
-    }
-  }
-
-  .moreEventsBanner {
-    padding: 15px 0;
-    background: #5aaf21;
-    // background-color: black;
-    // border-top: 1px solid white;
-    position: relative;
-
-    // marquee {
-    //   font-size: 20rem;
-    //   font-weight: 900;
-    //   text-transform: uppercase;
-    //   color: transparent;
-    //   -webkit-text-stroke: rgba(0, 0, 0, 0.5);
-    //   -webkit-text-stroke-width: 1px;
-    // }
-
-    a {
-      display: block;
-      width: fit-content;
-      padding: 10px 20px;
-      margin: 0 auto;
-      border-radius: 20px;
-      background-color: black;
-      font-size: 1.8rem;
-      text-transform: uppercase;
-      color: white;
-      // position: absolute;
-      // top: 50%;
-      // left: 50%;
-      // transform: translate(-50%, -50%);
     }
   }
 }

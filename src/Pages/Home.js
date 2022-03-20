@@ -1,6 +1,7 @@
 import React from 'react';
 import CurrentEvents from '../Components/CurrentEvents';
-import FeaturedEvent from '../Components/FeaturedEvent';
+import CurrentMusicals from '../Components/CurrentMusicals';
+import EventSearch from '../Components/EventSearch';
 import MainEvent from '../Components/MainEvent';
 
 const Home = () => {
@@ -8,7 +9,8 @@ const Home = () => {
     <main>
       <MainEvent />
       <CurrentEvents />
-      <FeaturedEvent />
+      <CurrentMusicals />
+      <EventSearch />
     </main>
   )
 };

@@ -8,8 +8,13 @@ export const getEvents = async () => {
 
 export const getEventsByType = async (type) => {  
   return http(`/event/type/${type}`, {
+    method: "GET"
+  });
+}
+
+export const getEventsBySearch = async (term) => {  
+  return http(`/event/search/${term}`, {
     method: "GET",
-    body: {type}
   });
 }
 
