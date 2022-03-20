@@ -7,7 +7,7 @@ export const convertDateFromData = (eventDate) => {
   const day = newDate.toLocaleDateString('default', { weekday: 'short' });  
 
   let hour = newDate.getHours() % 12 === 0 ? 12 : newDate.getHours() % 12;
-  const min = newDate.getMinutes();
+  const min = newDate.getMinutes() > 10 ? newDate.getMinutes() : `0${newDate.getMinutes()}`
   const ampm = newDate.getHours() >= 11 ? 'pm' : 'am';
 
   if(newDate.getMonth() === today.getMonth() && newDate.getDate() === today.getDate()) {
@@ -35,6 +35,7 @@ export const convertDateFromInput = (date, time) => {
 export const getDateName = (eventDate) => {
   // 1. check if the event is expired
   const today = new Date();
+  today.setHours(0,0,0,0);
   const targetDate = new Date(eventDate);
 
   if(today > targetDate) return "Expired";

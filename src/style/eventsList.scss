@@ -2,7 +2,7 @@
 
 .eventsList {
   .scroll-container {
-    height: calc(100vh - 67px);
+    height: calc(100vh - 67px - 49px);
     overflow-y: scroll;
 
     section {
@@ -140,5 +140,29 @@
         }
       }
     }
+
+    .empty {
+      padding: $base-gap;
+      font-size: 3.6rem;
+      color: rgb(196, 196, 196);
+    }
+  }
+}
+
+.eventsList > .eventSearch {
+  min-height: min-content;
+  padding: 10px $base-gap;
+  margin: 0;
+  border-bottom: 1px solid black;
+
+  h2 {
+    display: none;
+  }
+
+  input {
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    border: none;
   }
 }

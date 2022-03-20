@@ -3,9 +3,10 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { checkExpired } from '../helper/checkExpired';
 import { convertDateFromData, getDateName } from '../helper/convertDate';
-import { getEvents, getEventsByType } from '../services/events';
+import { getEvents, getEventsBySearch, getEventsByType } from '../services/events';
 import { addWishlistItem, getUserInfo } from '../services/users';
 import '../style/eventsList.scss';
+import EventSearch from './EventSearch';
 
 const EventsList = () => {
   const navigate = useNavigate();
@@ -17,12 +18,16 @@ const EventsList = () => {
   // fetch event by event type
   useEffect(() => {    
     const type = searchParams.get("type");
+    const searchQuery = searchParams.get("search");
 
-    if(!type) {
-      getEvents()
+    if(searchQuery) {
+      getEventsBySearch(searchQuery)
         .then((data) => createArrayByDate(data));
-    }else {
+    } else if(type) {
       getEventsByType(type)
+        .then((data) => createArrayByDate(data));
+    } else {
+      getEvents()
         .then((data) => createArrayByDate(data));
     }
   }, [searchParams]);
@@ -47,7 +52,9 @@ const EventsList = () => {
     let innerArr = [];
 
     let currentDate = events[0]?.date?.slice(0,10);
-    setDateArr(prev => [...prev, events[0]?.date]);
+    setDateArr([events[0]?.date]);
+
+    console.log(currentDate)
 
     events.forEach((event, index) => {
       let date = event.date.slice(0,10);
@@ -73,6 +80,7 @@ const EventsList = () => {
 
   return (
     <div className="eventsList">
+      <EventSearch />
       <div className='scroll-container'>
         {
           events && events.map((eventArr, i) => (
@@ -107,6 +115,14 @@ const EventsList = () => {
               </div>
             </section>
           ))
+        }
+
+        {
+          !events.length && (
+            <div className='empty'>
+              Can't find any events :(
+            </div>
+          )
         }
       </div>
     </div>
