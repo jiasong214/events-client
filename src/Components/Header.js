@@ -20,7 +20,7 @@ const Header = () => {
           to='/'
           className={path === '/' ? "active" : ""}
         >
-          Title
+          Event venue<br />Somewhere...
         </Link>
       </h1>
       <nav>

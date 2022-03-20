@@ -30,7 +30,6 @@ const Payment = () => {
     const session_id = params.get("session_id");
 
     const session = await checkPayment(session_id);
-    console.log(session)
 
     // if payment process fail, redirect them to cancled page
     if(session?.payment_status !== "paid") return navigate("/payment?canceled=true");

@@ -2,43 +2,108 @@
 
 .mainEvent {
   padding: $base-gap;
-  display: grid;
-  grid-template-columns: 5fr 5fr;
+  width: 100%;
+  min-height: 80vh;
+  position: relative;
+  display: flex;
+  align-items: center;
 
   .textBox {
-    h2 {
-      font-size: 7.2rem;
-      font-weight: 900;
-      text-transform: uppercase;
-    }
+    width: calc(100% - #{$base-gap}* 2);
+    height: calc(100% - #{$base-gap}* 2);
+    display: flex;
+    justify-content: space-between;
+    padding: $base-gap calc(#{$base-gap} * 3);
+    position: absolute;
+    top: $base-gap;
+    left: calc($base-gap * 2);
+    z-index: 10;
 
-    p {
-      margin: 10px 0 20px;
+    .titleBox > * {
+      width: fit-content;
+      padding: 5px 10px;
+      margin-bottom: 5px;
+      background-color: white;
       font-size: 4.8rem;
-      font-weight: 900;
       text-transform: uppercase;
-      color: rgb(63, 156, 231);
+      font-weight: 900;
     }
 
-    .btnBox {
-      a {
-        display: inline-block;
-        padding: 8px 20px;
-        margin-right: 10px;
-        border-radius: 20px;
-        border: 1px solid black;
-        font-size: 1.8rem;
-        text-transform: uppercase;
+    .infoBox {
+      width: 300px;
+      height: fit-content;
+      margin-top: auto;
+      padding: $base-gap;
+      background-color: black;
 
-        &:hover {
-          background-color: black;
-          color: white;
-        }
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: white;
+      letter-spacing: 0px;
+
+      p {
+        margin-bottom: 10px;
+      }
+
+      a {
+        display: block;
+        padding: 10px 0;
+        border-bottom: 1px solid white;
+        text-transform: uppercase;
       }
     }
   }
 
   .img-container {
     width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    img {
+      display: block;
+      width: 60%;
+      margin: 0 auto;
+      filter: brightness(0.8);
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .mainEvent {
+    display: block;
+
+    .textBox {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      padding-top: $base-gap;
+      display: block;
+
+      .titleBox > * {
+        padding: 0;
+        margin: 0;
+      }
+
+      .infoBox {
+        margin: $base-gap 0;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        color: black;
+        font-weight: 400;
+
+        a {
+          border-bottom: 1px solid black;
+        }
+      }
+    }
+
+    .img-container {
+      img {
+        width: 100%;
+      }
+    }
   }
 }

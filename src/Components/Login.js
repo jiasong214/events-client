@@ -7,7 +7,9 @@ import '../style/login.scss';
 const Login = ({isLogin, swapForm}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userStatus = useSelector(state => state.user);
   const user = useSelector(state => state.user?.data);
+  const [error, setError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,8 +27,10 @@ const Login = ({isLogin, swapForm}) => {
 
   // if a user is logged in, redirect them to index page
   useEffect(() => {
-    if(user._id) navigate("/");
-  }, [user]);
+    if(user._id) return navigate("/");
+    if(userStatus.error !== null) setError("Check your email and password.");
+    
+  }, [user, userStatus]);
 
   return (
     <>
@@ -34,6 +38,7 @@ const Login = ({isLogin, swapForm}) => {
         isLogin &&
         <section className='login'>
           <h2>Login</h2>
+          <span>{error}</span>
           <form onSubmit={(e) => submitForm(e)}>
             <input 
               type="text" 
