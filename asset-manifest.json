@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/events-client/static/css/main.2d43fabe.css",
+    "main.js": "/events-client/static/js/main.69768a58.js",
+    "index.html": "/events-client/index.html",
+    "main.2d43fabe.css.map": "/events-client/static/css/main.2d43fabe.css.map",
+    "main.69768a58.js.map": "/events-client/static/js/main.69768a58.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.2d43fabe.css",
+    "static/js/main.69768a58.js"
+  ]
+}
