@@ -29,15 +29,6 @@ const AdminEventsList = () => {
       <div className='addBtnBar'>
         <Link to='/admin/event/new'>+ new event</Link>
       </div>
-      <div className="viewOptionBar">
-        <div className="filters">
-          <button>All</button>
-          <button>Concert</button>
-          <button>Musical</button>
-          <button>Comedy</button>
-          <button>Drama</button>
-        </div>
-      </div>
       <ul>
         {
           events && events.map((event) => (
@@ -51,7 +42,7 @@ const AdminEventsList = () => {
                 <p className="eventDate">{event.date}</p>
               </div>
               <div className="btnBox">
-                <Link to="/admin/event/:id">View</Link>
+                <Link to={`/admin/event/${event._id}`}>View</Link>
                 <Link to={`/admin/event/${event._id}/edit`}>Edit</Link>
                 <button onClick={() => clickDelete(event._id, event.name)}>
                   Delete

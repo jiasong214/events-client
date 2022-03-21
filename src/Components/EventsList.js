@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { checkExpired } from '../helper/checkExpired';
 import { convertDateFromData, getDateName } from '../helper/convertDate';
-import { getEvents, getEventsBySearch, getEventsByType } from '../services/events';
+import { deleteEvent, getEvents, getEventsBySearch, getEventsByType } from '../services/events';
 import { addWishlistItem, getUserInfo } from '../services/users';
 import '../style/eventsList.scss';
 import EventSearch from './EventSearch';
@@ -45,6 +45,20 @@ const EventsList = () => {
 
     // 3. add event in user's wishlist
     addWishlistItem(user._id, eventID);
+  }
+
+  const clickDelete = (id, name) => {
+    if(!user?.type === "admin") return alert("access denied!")
+    // confirm the action
+    const confirmed = window.confirm(`Do you want to delete ${name}?`);
+    if(!confirmed) return;
+
+    // delete the event
+    deleteEvent(id)
+      .then(data => {
+        const filteredArr = events.filter((event) => event._id !== data._id);
+        setEvents(filteredArr);
+      })
   }
 
   const createArrayByDate = (events) => {
@@ -104,10 +118,20 @@ const EventsList = () => {
                         <Link to={`/event/${event._id}`}>{event.name}</Link>
                       </h3>
                       <p className="eventDate">{convertDateFromData(event.date)}</p>
-                      <div className="btnBox">
-                        <Link to={`/event/${event._id}`}>Book</Link>
-                        <button onClick={() => clickWishlist(event._id)}>Wishlist</button>
-                      </div>
+                      {
+                        user?.type === "admin"
+                        ?
+                        <div className="btnBox">
+                          <Link to={`/admin/event/${event._id}`}>View</Link>
+                          <Link to={`/admin/event/${event._id}/edit`}>Edit</Link>
+                          <button onClick={() => clickDelete(event._id, event.name)}>Delete</button>
+                        </div>
+                        :
+                        <div className="btnBox">
+                          <Link to={`/event/${event._id}`}>Book</Link>
+                          <button onClick={() => clickWishlist(event._id)}>Wishlist</button>
+                        </div>
+                        }
                     </div>
                   </article>
                 ))

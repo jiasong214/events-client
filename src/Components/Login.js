@@ -27,8 +27,8 @@ const Login = ({isLogin, swapForm}) => {
 
   // if a user is logged in, redirect them to index page
   useEffect(() => {
-    if(user._id) return navigate("/");
-    if(userStatus.error !== null) setError("Check your email and password.");
+    if(user?._id) return navigate("/");
+    if(userStatus?.error !== null) setError("Check your email and password.");
     
   }, [user, userStatus]);
 

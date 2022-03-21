@@ -30,15 +30,25 @@ const Header = () => {
         >
           What's on
         </Link>
-        <Link
-          to='/wishlist'
-          className={path === '/wishlist' ? "active" : ""}
-        >
-          Wishlist
-        </Link>
-
         {
-          user._id
+          user?.type !== "admin"
+          ?
+          <Link
+            to='/wishlist'
+            className={path === '/wishlist' ? "active" : ""}
+          >
+            Wishlist
+          </Link>
+          :
+          <Link
+          to='/admin'
+          className={path === '/admin' ? "active" : ""}
+          >
+            Admin
+          </Link>
+        }
+        {
+          user?._id
           ?
           <Link
             to='/mypage'

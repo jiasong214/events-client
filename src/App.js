@@ -11,8 +11,10 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("me() is running")
-    dispatch(me());
+    const token = localStorage.getItem("token");
+
+    if(token) dispatch(me());
+
   }, [dispatch]);
 
   return (

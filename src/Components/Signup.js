@@ -39,7 +39,7 @@ const Signup = ({isLogin, swapForm}) => {
 
   // if a user is logged in, redirect them to index page
   useEffect(() => {
-    if(user._id) navigate("/");
+    if(user?._id) navigate("/");
   }, [user]);
 
   return (

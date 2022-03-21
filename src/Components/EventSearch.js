@@ -39,7 +39,6 @@ const EventSearch = () => {
           type="text"
           placeholder='Search Events'
           required={true}
-          autoFocus={true}
           value={searchTerm}
           onChange={(e) => changeSearchTerm(e)}
         />

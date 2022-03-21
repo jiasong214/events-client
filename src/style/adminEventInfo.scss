@@ -1,0 +1,46 @@
+@import "./global.scss";
+@import "./eventInfo.scss";
+
+.adminEventInfo {
+  @extend .eventInfo;
+
+  min-height: calc(100vh - 65px);
+
+  .textBox {
+    grid-template-rows: auto 1fr;
+
+    .bookings-info {
+      h2 {
+        font-size: 2rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      ul {
+        height: calc(100vh - 65px - #{$base-gap} * 3 - 114px - 25px);
+        overflow-y: scroll;
+        background-color: rgb(243, 243, 243);
+
+        li {
+          padding: $base-gap 10px;
+          margin: 0 $base-gap;
+          border-bottom: 1px solid black;
+          cursor: pointer;
+
+          &.focused {
+            background-color: rgb(247, 216, 40);
+            transition: 0.5s;
+          }
+
+          p {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+
+  .seatMap {
+    height: 100%;
+  }
+}

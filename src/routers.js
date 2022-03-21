@@ -10,6 +10,7 @@ import CreateEvent from './Pages/CreateEvent';
 import CreateRoom from './Pages/CreateRoom';
 import MyPage from './Pages/MyPage';
 import Payment from './Pages/Payment';
+import AdminEventInfo from './Pages/AdminEventInfo';
 
 const Routers = () => {
   return (
@@ -25,10 +26,10 @@ const Routers = () => {
 
       <Route path="/admin" element={<Admin />} />
       <Route path="/admin/event/new" element={<CreateEvent />} />
+      <Route path="/admin/event/:id" element={<AdminEventInfo />} />
       <Route path="/admin/event/:id/edit" element={<CreateEvent />} />
       <Route path="/admin/room/new" element={<CreateRoom />} />
       <Route path="/admin/room/:id/edit" element={<CreateRoom />} />
-    
   </Routes>
   )
 }

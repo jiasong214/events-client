@@ -3,16 +3,16 @@ import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { convertDateFromData } from '../helper/convertDate';
 import { getEvent } from '../services/events';
-import { requestPayment } from '../services/payment';
-import '../style/eventInfo.scss';
+import '../style/adminEventInfo.scss';
 
-const EventInfo = () => {
+const AdminEventInfo = () => {
   const params = useParams();
   const navigate = useNavigate();
   const user = useSelector(state => state.user?.data);
   const [event, setEvent] = useState();
+  const [bookings, setBookings] = useState([]);
   const [takenSeats, setTakenSeats] = useState({});
-  const [selectedSeats, setSelectedSeats] = useState({});
+  const [selectedSeat, setSelectedSeat] = useState("");
 
   // fetch event info
   useEffect(() => {
@@ -20,16 +20,18 @@ const EventInfo = () => {
 
     getEvent(eventID)
       .then(data => {
+        console.log(data.bookings)
         // 1. set event info
         setEvent(data);
+        setBookings(data.bookings);
 
         // 2. iterate all booking object's seat and map it
         data.bookings.forEach((booking) => {
-          const userID = booking.user;
+          const bookingID = booking._id;
 
           booking.seats.forEach((seat) => {
             const newObj = {};
-            newObj[seat] = userID;
+            newObj[seat] = bookingID;
 
             setTakenSeats((prev => ({...prev, ...newObj})));
           });
@@ -40,91 +42,65 @@ const EventInfo = () => {
 
 
   const clickSeat = (seatID) => {
-    if(selectedSeats[seatID]) {
-      // if it was already selected, remove the seat from the object
-      delete selectedSeats[seatID];
+    const bookingID = takenSeats[seatID];
 
-      setSelectedSeats({...selectedSeats});
-    }else {
-      // if not, add the seat to the object
-      const obj = {};
-      obj[seatID] = "selected";
+    if(!bookingID) return;
 
-      setSelectedSeats((seats) => ({...seats, ...obj}));
-    }
+    selectedSeat === bookingID ? setSelectedSeat("") : setSelectedSeat(bookingID);
+  }
+
+  const clickBooking = (bookingID) => {
+    selectedSeat === bookingID ? setSelectedSeat("") : setSelectedSeat(bookingID);
   }
 
   const setSeatStatus = (seatID) => {
-    if(takenSeats === {} && selectedSeats === {}) return "available";
-    
-    if(takenSeats[seatID] && takenSeats[seatID] === user?._id) {
-      return "booked";
+    const bookingID = takenSeats[seatID];
+
+    if(takenSeats === {}) return "available";
+
+    if(takenSeats[seatID] && selectedSeat === bookingID) {
+      return "selected";
     }else if(takenSeats[seatID]) {
       return "taken";
-    }else if(selectedSeats[seatID]) {
-      return "selected";
     }else {
       return "available";
     }
+  
   }
 
-  const clickBook = async (event) => {
-    // check if a user is logged in first
-    if(!user._id) navigate('/login');
-
-    const seatsArr = Object.keys(selectedSeats);
-
-    // check if a user choose a seat
-    if(!seatsArr.length) return window.alert("Choose the seat please.")
-
-    // create a payment
-    const payment = await requestPayment({
-      eventID: event._id,
-      eventName: event.name,
-      eventPrice: event.price * 100,
-      quantity: seatsArr.length,
-      seats: seatsArr
-    });
-
-    // redirect to payment page
-    window.location.href = await payment.url;
+  const mapBookingID = (seatID) => {
+    if(takenSeats[seatID]) {
+      return takenSeats[seatID];
+    }
   }
-
-  const getTotalPrice = (price) => {
-    const selectedSeatsNum = Object.keys(selectedSeats).length;
-
-    return parseInt(price) * selectedSeatsNum;
-  }
-
 
   return (
     <>
       {event &&
-        <div className="eventInfo">
+        <div className="adminEventInfo">
           <div className='textBox'>
             <div className='event-info'>
               <span>{event.type}</span>
               <h2>{event.name}</h2>
               <p>{convertDateFromData(event.date)}</p>
             </div>
-            <div className="seat-info">
-              {
-                Object.keys(selectedSeats).length ?
-                  <p>Selected seats</p> : ""
-              }
+            <div className='bookings-info'>
+              <h2>Booking List</h2>
               <ul>
                 {
-                  Object.keys(selectedSeats).map((seat) => (
-                    <li key={seat}>{seat}</li>
-                  ))
+                  bookings.length && bookings.map((booking) => (
+                    <li 
+                      key={booking._id}
+                      className={selectedSeat === booking._id ? "focused" : ""}
+                      onClick={() => clickBooking(booking._id)}
+                    >
+                      <p>USER CODE: {booking.user}</p>
+                      <p>SEARS: {booking.seats.join(", ")}</p>
+                      <p>PAYMENT CODE: {booking.paymentID}</p>
+                    </li>
+                  )) 
                 }
               </ul>
-            </div>
-            <div className="ticket-info">
-              <p>${getTotalPrice(event.price)}</p>
-              <button onClick={() => clickBook(event)}>
-                Buy a ticket
-              </button>
             </div>
           </div>
          
@@ -139,7 +115,8 @@ const EventInfo = () => {
                       new Array(event.room.cols).fill('').map((seat, j) => (
                         <span
                           key={`${i}-${j}`}
-                          className='seat'
+                          id={mapBookingID(`${i}-${j}`)}
+                          className='seat --admin'
                           data-status={setSeatStatus(`${i}-${j}`)}
                           onClick={() => clickSeat(`${i}-${j}`)}
                         >
@@ -158,4 +135,4 @@ const EventInfo = () => {
   )
 };
 
-export default EventInfo;
+export default AdminEventInfo;

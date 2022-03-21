@@ -163,6 +163,10 @@
             &[data-status="selected"] {
               background: rgb(66, 165, 99);
             }
+
+            &.--admin {
+              pointer-events: all !important;
+            }
           }
         }
       }
