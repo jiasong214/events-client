@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { signup } from '../services/users';
+import { signup } from '../store/modules/user.js';
 import '../style/login.scss';
 
 const Signup = ({isLogin, swapForm}) => {

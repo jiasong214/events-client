@@ -68,8 +68,6 @@ const EventsList = () => {
     let currentDate = events[0]?.date?.slice(0,10);
     setDateArr([events[0]?.date]);
 
-    console.log(currentDate)
-
     events.forEach((event, index) => {
       let date = event.date.slice(0,10);
 

@@ -22,7 +22,7 @@ const MyPage = () => {
       .then((data) => {
         getBookingInfo(data.bookings)
       });
-  }, []);
+  }, [user]);
 
   const getBookingInfo = async (bookings) => {
     setEvents([]);

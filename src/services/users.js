@@ -14,13 +14,12 @@ const removeHeader = () => {
 }
 
 export const signup = async (email, password) => {
-  setHeader();
-
   return http('/user/signup', {
     method: "POST",
     body: {email, password},
   }).then((data) => {
     localStorage.setItem("token", data.token);
+    setHeader();
 
     return data;
   });
