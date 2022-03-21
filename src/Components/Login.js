@@ -38,7 +38,7 @@ const Login = ({isLogin, swapForm}) => {
         isLogin &&
         <section className='login'>
           <h2>Login</h2>
-          <span>{error}</span>
+          {/* <span>{error}</span> */}
           <form onSubmit={(e) => submitForm(e)}>
             <input 
               type="text" 
