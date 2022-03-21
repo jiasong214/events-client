@@ -75,7 +75,7 @@ const EventInfo = () => {
 
   const clickBook = async (event) => {
     // check if a user is logged in first
-    if(!user._id) navigate('/login');
+    if(!user._id) return navigate('/login');
 
     const seatsArr = Object.keys(selectedSeats);
 

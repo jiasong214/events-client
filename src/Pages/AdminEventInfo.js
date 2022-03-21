@@ -95,7 +95,7 @@ const AdminEventInfo = () => {
                       onClick={() => clickBooking(booking._id)}
                     >
                       <p>USER CODE: {booking.user}</p>
-                      <p>SEARS: {booking.seats.join(", ")}</p>
+                      <p>SEATS: {booking.seats.join(", ")}</p>
                       <p>PAYMENT CODE: {booking.paymentID}</p>
                     </li>
                   )) 
