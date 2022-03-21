@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Routers from './routers';
@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router basename='https://jiasong214.github.io/events-client/'>
+      <Router>
         <Header />
         <Routers />
         <Footer />
