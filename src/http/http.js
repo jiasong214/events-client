@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080";
-// const BASE_URL = "https://jia-events.herokuapp.com";
+// const BASE_URL = "http://localhost:8080";
+const BASE_URL = "https://jia-events.herokuapp.com";
 
 
 const http = async (url, options) => {  
