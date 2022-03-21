@@ -7,6 +7,8 @@ import { checkExpired } from '../helper/checkExpired';
 import { convertDateFromData, getDateName } from '../helper/convertDate';
 import { deleteEvent, getEvents, getEventsBySearch, getEventsByType } from '../services/events';
 import { addWishlistItem, getUserInfo } from '../services/users';
+import '../style/loading.scss';
+
 import '../style/eventsList.scss';
 
 const EventsList = () => {
@@ -98,77 +100,69 @@ const EventsList = () => {
   }
 
   return (
-    // <>
-    //   {
-    //     loading
-    //     ?
-    //     <Loading loading={loading}/>
-    //     :
-        <div className="eventsList">
-          {
-            loading
-            ?
-            <Loading loading={loading}/>
-            : ""
-          }
-          <EventSearch />
-          <div className='scroll-container'>
-            {
-              events && events.map((eventArr, i) => (
-                <section key={i}>
-                  <div className='date'>
-                    <p>{getDateName(dateArr[i])}</p>
-                  </div>
-                  <div>
-                  {
-                    eventArr && eventArr.map((event) => (
-                      <article
-                        key={event._id}
-                        className={checkExpired(event.date)}
-                      >
-                        <div className='imgBox'>
-                          <img src={event.image} alt={event.name} />
+    <div className="eventsList">
+      {
+        loading
+        ?
+        <Loading loading={loading}/>
+        : ""
+      }
+      <EventSearch />
+      <div className='scroll-container'>
+        {
+          events && events.map((eventArr, i) => (
+            <section key={i}>
+              <div className='date'>
+                <p>{getDateName(dateArr[i])}</p>
+              </div>
+              <div>
+              {
+                eventArr && eventArr.map((event) => (
+                  <article
+                    key={event._id}
+                    className={checkExpired(event.date)}
+                  >
+                    <div className='imgBox'>
+                      <img src={event.image} alt={event.name} />
+                    </div>
+                    <div className='textBox'>
+                      <span className="eventType">{event.type}</span>
+                      <h3 className="eventName">
+                        <Link to={`/event/${event._id}`}>{event.name}</Link>
+                      </h3>
+                      <p className="eventDate">{convertDateFromData(event.date)}</p>
+                      {
+                        user?.type === "admin"
+                        ?
+                        <div className="btnBox">
+                          <Link to={`/admin/event/${event._id}`}>View</Link>
+                          <Link to={`/admin/event/${event._id}/edit`}>Edit</Link>
+                          <button onClick={() => clickDelete(event._id, event.name)}>Delete</button>
                         </div>
-                        <div className='textBox'>
-                          <span className="eventType">{event.type}</span>
-                          <h3 className="eventName">
-                            <Link to={`/event/${event._id}`}>{event.name}</Link>
-                          </h3>
-                          <p className="eventDate">{convertDateFromData(event.date)}</p>
-                          {
-                            user?.type === "admin"
-                            ?
-                            <div className="btnBox">
-                              <Link to={`/admin/event/${event._id}`}>View</Link>
-                              <Link to={`/admin/event/${event._id}/edit`}>Edit</Link>
-                              <button onClick={() => clickDelete(event._id, event.name)}>Delete</button>
-                            </div>
-                            :
-                            <div className="btnBox">
-                              <Link to={`/event/${event._id}`}>Book</Link>
-                              <button onClick={() => clickWishlist(event._id)}>Wishlist</button>
-                            </div>
-                            }
+                        :
+                        <div className="btnBox">
+                          <Link to={`/event/${event._id}`}>Book</Link>
+                          <button onClick={() => clickWishlist(event._id)}>Wishlist</button>
                         </div>
-                      </article>
-                    ))
-                  }
-                  </div>
-                </section>
-              ))
-            }
-    
-            {
-              !events.length && (
-                <div className='empty'>
-                  Can't find any events :(
-                </div>
-              )
-            }
-          </div>
-        </div>
-    //   }
-    // </>
+                        }
+                    </div>
+                  </article>
+                ))
+              }
+              </div>
+            </section>
+          ))
+        }
+
+        {
+          !events.length && (
+            <div className='empty'>
+              Can't find any events :(
+            </div>
+          )
+        }
+      </div>
+    </div>
   )
 };
 

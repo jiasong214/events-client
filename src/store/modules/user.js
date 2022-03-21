@@ -33,11 +33,7 @@ export const signup = (email, password) => dispatch => {
   dispatch(pendingUserFetch());
 
   api.signup(email, password)
-    .then((data) => {
-      console.log(data)
-
-      dispatch(succeedUserFetch(data))
-    })
+    .then((data) => dispatch(succeedUserFetch(data)))
     .catch((err) => dispatch(failUserFetch(err)));
 }
 
@@ -63,7 +59,6 @@ const initialState = {
 
 //make a reducer and export
 export default function reducer (state = initialState, action) {
-  console.log(state)
   switch(action.type) {
       case PENDING_USER_FETCH:
         return {

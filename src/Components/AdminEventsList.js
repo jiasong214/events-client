@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { convertDateFromData } from '../helper/convertDate';
 import { deleteEvent, getEvents } from '../services/events';
 import '../style/adminEventsList.scss';
 
@@ -39,7 +40,9 @@ const AdminEventsList = () => {
               <div className='textBox'>
                 <span className="eventType">{event.type}</span>
                 <h3 className="eventName">{event.name}</h3>
-                <p className="eventDate">{event.date}</p>
+                <p className="eventDate">
+                  {convertDateFromData(event.date)}
+                </p>
               </div>
               <div className="btnBox">
                 <Link to={`/admin/event/${event._id}`}>View</Link>

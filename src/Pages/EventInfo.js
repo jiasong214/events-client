@@ -74,13 +74,13 @@ const EventInfo = () => {
   }
 
   const clickBook = async (event) => {
-    // check if a user is logged in first
-    if(!user._id) return navigate('/login');
-
     const seatsArr = Object.keys(selectedSeats);
 
     // check if a user choose a seat
-    if(!seatsArr.length) return window.alert("Choose the seat please.")
+    if(!seatsArr.length) return window.alert("Choose the seat please.");
+
+    // check if a user is logged in first
+    if(!user?._id) return navigate('/login');
 
     // create a payment
     const payment = await requestPayment({

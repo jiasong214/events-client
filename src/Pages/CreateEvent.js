@@ -58,7 +58,7 @@ const CreateEvent = () => {
   const changeDate = (e) => setDate(e.target.value);
   const changeTime = (e) => setTime(e.target.value);
   const changeRoom = (e) => setRoom(e.target.value);
-  const changeInfo = (e) => setInfo(e.target.value);
+  // const changeInfo = (e) => setInfo(e.target.value);
   const changePrice = (e) => setPrice(e.target.value);
   const changeImage = (e) => setImage(e.target.files[0]);
 
@@ -69,7 +69,7 @@ const CreateEvent = () => {
       return;
     }
 
-    params.id ? editEvent() : makeEvent()
+    params.id ? editEvent() : makeEvent();
 
     navigate('/admin');
   }
@@ -183,11 +183,11 @@ const CreateEvent = () => {
           onChange= {(e)=> changeImage(e)} 
         />
 
-        <textarea 
+        {/* <textarea 
           rows="20"
           value={info}
           onChange={(e) => changeInfo(e)}
-        />
+        /> */}
 
         <button type="submit">Submit</button>
       </form>

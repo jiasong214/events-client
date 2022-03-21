@@ -3,6 +3,11 @@
 .eventsList {
   position: relative;
 
+  .loading {
+    top: 50px;
+    height: calc(100vh - 67px - 50px);
+  }
+
   .scroll-container {
     height: calc(100vh - 67px - 49px);
     overflow-y: scroll;

@@ -13,11 +13,13 @@ const Header = () => {
   useEffect(() => {
     setPath(location.pathname);
 
-    if(user._id) {
+    if(user?._id) {
       getUserInfo(user._id)
         .then((data) => setWishlist(data.wishlist))
+    }else {
+      setWishlist([]);
     }
-  }, [location.pathname])
+  }, [location.pathname, user])
 
 
   return (

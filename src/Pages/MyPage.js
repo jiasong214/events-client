@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../Components/Loading';
 import UserInfo from '../Components/UserInfo';
 import { checkExpired } from '../helper/checkExpired';
 import { convertDateFromData } from '../helper/convertDate';
@@ -12,6 +13,7 @@ const MyPage = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user?.data);
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // 1. check login status
@@ -20,7 +22,8 @@ const MyPage = () => {
     // 2. fetch data
     getUserInfo(user._id)
       .then((data) => {
-        getBookingInfo(data.bookings)
+        getBookingInfo(data.bookings);
+        setLoading(false);
       });
   }, [user]);
 
@@ -50,47 +53,49 @@ const MyPage = () => {
           <h2>My page</h2>
           <UserInfo />
     
-        {
-          events && events.length !== 0 &&
           <div className='bookings'>
             <h3>My tickets</h3>
-            <ul>
             {
-              events.map((event, i) => (
-                <li 
-                  key={i}
-                  className={checkExpired(event.date)}
-                >
-                  <div className='imgBox'>
-                    <img src={event.image} alt={event.name} />
-                  </div>
-                  <div>
-                    <div className='textBox'>
-                      <span className="eventType">{event.type}</span>
-                      <h3 className="eventName">
-                        <Link to={`/event/${event._id}`}>{event.name}</Link>
-                      </h3>
-                      <p className="eventDate">{convertDateFromData(event.date)}</p>
-                      <p className='eventRoom'>{event.room.name}</p>
-                      <div className="bookedSeats">
-                        {
-                          event.seats.map((seat, i) => (
-                            <p key={i}>{seat}</p>
-                          ))
-                        }
-                      </div>
-                      <div className='ticketCode'>
-                        <p>TICKET CODE: {event.code}</p>
+              loading
+              ?
+              <Loading/>
+              :
+              <ul>
+              {
+                events.length !== 0 && events.map((event, i) => (
+                  <li 
+                    key={i}
+                    className={checkExpired(event.date)}
+                  >
+                    <div className='imgBox'>
+                      <img src={event.image} alt={event.name} />
+                    </div>
+                    <div>
+                      <div className='textBox'>
+                        <span className="eventType">{event.type}</span>
+                        <h3 className="eventName">
+                          <Link to={`/event/${event._id}`}>{event.name}</Link>
+                        </h3>
+                        <p className="eventDate">{convertDateFromData(event.date)}</p>
+                        <p className='eventRoom'>{event.room.name}</p>
+                        <div className="bookedSeats">
+                          {
+                            event.seats.map((seat, i) => (
+                              <p key={i}>{seat}</p>
+                            ))
+                          }
+                        </div>
+                        <div className='ticketCode'>
+                          <p>TICKET CODE: {event.code}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </li>
-              ))
+                  </li>
+                ))
+              }
+              </ul>
             }
-            </ul>
           </div>
-        }
-    
         </section>
       }
     </>
