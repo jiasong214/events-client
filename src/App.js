@@ -19,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
+      <Router basename='https://jiasong214.github.io/events-client/'>
         <Header />
         <Routers />
         <Footer />
