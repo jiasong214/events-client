@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import Loading from '../Components/Loading';
 import { convertDateFromData } from '../helper/convertDate';
 import { getUserInfo, removeWishlistItem } from '../services/users';
 import '../style/wishlist.scss';
@@ -9,14 +10,17 @@ const Wishlist = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user?.data);
   const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     // 1. check login status
     if(!user._id) return navigate("/login");
 
     // 2. fetch data
     getUserInfo(user._id)
-      .then((data) => setEvents(data.wishlist));
+      .then((data) => setEvents(data.wishlist))
+      .then(() => setLoading(false));
   }, [user]);
 
   const clickDelete = async (eventID) => {
@@ -29,7 +33,11 @@ const Wishlist = () => {
       <h2>Wishlist</h2>
       <ul>
         {
-          events && events.map((event) => (
+          loading
+          ?
+          <Loading />
+          :
+          events.map((event) => (
             <li key={event._id}>
               <div className='imgBox'>
                 <img src={event.image} alt={event.name} />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import Loading from '../Components/Loading';
 import { convertDateFromData } from '../helper/convertDate';
 import { getEvent } from '../services/events';
 import { requestPayment } from '../services/payment';
@@ -13,10 +14,13 @@ const EventInfo = () => {
   const [event, setEvent] = useState();
   const [takenSeats, setTakenSeats] = useState({});
   const [selectedSeats, setSelectedSeats] = useState({});
+  const [loading, setLoading] = useState(true);
 
   // fetch event info
   useEffect(() => {
     const eventID = params.id;
+
+    setLoading(true);
 
     getEvent(eventID)
       .then(data => {
@@ -35,6 +39,7 @@ const EventInfo = () => {
           });
         });
 
+        setLoading(false);
       });
   }, [params.id]);
 
@@ -98,9 +103,13 @@ const EventInfo = () => {
 
 
   return (
-    <>
-      {event &&
-        <div className="eventInfo">
+    <div className="eventInfo">
+      {
+        loading
+        ?
+        <Loading/>
+        :
+        <>
           <div className='textBox'>
             <div className='event-info'>
               <span>{event.type}</span>
@@ -127,7 +136,7 @@ const EventInfo = () => {
               </button>
             </div>
           </div>
-         
+          
           <div className='bookingBox'>
             <div className='seatMap'>
               <span className='room'>{event.room.name}</span>
@@ -152,9 +161,10 @@ const EventInfo = () => {
               }
             </div>
           </div>
-        </div>
+        </>
       }
-    </>
+
+    </div>
   )
 };
 
