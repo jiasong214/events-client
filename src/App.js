@@ -6,7 +6,7 @@ import Footer from './Components/Footer';
 import Routers from './routers';
 import Loading from './Components/Loading';
 import { me } from './store/modules/user';
-import { getEvent } from './services/events';
+import { getEvents } from './services/events';
 import './style/global.scss';
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    getEvent()
+    getEvents()
       .then(() => setLoading(false))
   }, [])
 
