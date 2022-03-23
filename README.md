@@ -4,10 +4,16 @@ Client side of Event venue website. Completed as part of the final project for G
 
 [Click here for Demo](https://jiasong214.github.io/events-client)
 
+### For test
+
+- [user] ID: `test@test.com` PW: `chicken`
+- [admin] ID: `admin@admin.com` PW: `chicken`
+- [payment] Card number: `4242-4242-4242-4242`
+
 ## Features
 
 - User login, sign up
-- Select seats and purchase through [Stripe](https://stripe.com/au). (TEST CARD NUM: `4242-4242-4242-4242`)
+- Select seats and purchase through [Stripe](https://stripe.com/au).
 - Wishlist function
 - Event search
 - CRUD for events and rooms in Admin section
