@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Loading from '../Components/Loading';
 import { convertDateFromData } from '../helper/convertDate';
 import { getUserInfo, removeWishlistItem } from '../services/users';
@@ -8,6 +8,7 @@ import '../style/wishlist.scss';
 
 const Wishlist = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const user = useSelector(state => state.user?.data);
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +22,10 @@ const Wishlist = () => {
     getUserInfo(user._id)
       .then((data) => setEvents(data.wishlist))
       .then(() => setLoading(false));
-  }, [user]);
+
+      console.log("hello")
+  }, [user, navigate, location]);
+  
 
   const clickDelete = async (eventID) => {
     removeWishlistItem(user._id, eventID)
