@@ -1,11 +1,13 @@
 import axios from 'axios';
 import http from '../http/http';
 
-const setHeader = () => {
+const setHeader = (t) => {
   const token = localStorage.getItem("token");
 
   if(token) {
     axios.defaults.headers.common = {'Authorization': `Bearer ${token}`};
+  }else if(t) {
+    axios.defaults.headers.common = {'Authorization': `Bearer ${t}`};
   }
 }
 
@@ -19,20 +21,19 @@ export const signup = async (email, password) => {
     body: {email, password},
   }).then((data) => {
     localStorage.setItem("token", data.token);
-    setHeader();
+    setHeader(data.token);
 
     return data;
   });
 }
 
 export const login = async (email, password) => {
-  setHeader();
-
   return http('/user/login', {
     method: "POST",
     body: {email, password},
   }).then((data) => {
     localStorage.setItem("token", data.token);
+    setHeader(data.token);
 
     return data;
   });
