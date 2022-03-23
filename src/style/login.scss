@@ -2,7 +2,7 @@
 
 .login {
   width: fit-content;
-  padding: calc(50px + 5vh) $base-gap;
+  padding: 70px $base-gap;
   margin: 0 auto;
   background-color: white;
   position: absolute;
@@ -58,6 +58,17 @@
     color: gray;
     text-align: center;
     text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .test-account {
+    all: unset;
+    display: block;
+    width: fit-content;
+    margin: 30px auto 0;
+    padding: 8px 20px;
+    border: 1px solid black;
+    font-size: 1.6rem;
     cursor: pointer;
   }
 }

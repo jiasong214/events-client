@@ -31,9 +31,9 @@ const UserInfo = () => {
         userInfo !== {} && <p>{userInfo.email}</p>
       }
       <div className='btnBox'>
-        <Link to="/">
+        {/* <Link to="/">
           Edit
-        </Link>
+        </Link> */}
         <button onClick={() => clickLogout()}>
           Log out
         </button>

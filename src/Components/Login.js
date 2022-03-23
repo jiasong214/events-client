@@ -25,6 +25,10 @@ const Login = ({isLogin, swapForm}) => {
     setPassword("");
   }
 
+  const clickTestAccount = () => {
+    dispatch(login("test@test.com", "chicken"));
+  }
+
   // if a user is logged in, redirect them to index page
   useEffect(() => {
     if(user?._id) return navigate("/");
@@ -57,6 +61,13 @@ const Login = ({isLogin, swapForm}) => {
             <button type="submit">Login</button>
           </form>
           <p onClick={() => swapForm()}>You don't have an account?</p>
+
+          <button 
+            className='test-account'
+            onClick={() => clickTestAccount()}
+          >
+            Login with test account
+          </button>
         </section>
       }
     </>

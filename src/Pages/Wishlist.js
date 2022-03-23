@@ -15,7 +15,7 @@ const Wishlist = () => {
   useEffect(() => {
     setLoading(true);
     // 1. check login status
-    if(!user._id) return navigate("/login");
+    if(!user?._id) return navigate("/login");
 
     // 2. fetch data
     getUserInfo(user._id)
