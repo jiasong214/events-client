@@ -15,7 +15,8 @@ const CurrentMusicals = () => {
 
     getEventsBySearch("chicago")
     .then(data => setMusicals(prev => [...prev, ...data]));
-  },[])
+  },[]);
+  
   return (
     <div className="currentMusicals">
       <div className="innerbox">

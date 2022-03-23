@@ -6,9 +6,7 @@ const MainEvent = () => {
   return (
     <section className="mainEvent">
       <div className="img-container">
-        {/* <div className="imgBox"> */}
-          <img src="https://res.cloudinary.com/dwhhlicmv/image/upload/v1647744664/events/amndcwdgxoplapo0u28z.jpg" alt="temp" />
-        {/* </div> */}
+        <img src="https://res.cloudinary.com/dwhhlicmv/image/upload/v1647744664/events/amndcwdgxoplapo0u28z.jpg" alt="temp" />
       </div>
       <div className="textBox">
         <div className="titleBox">
